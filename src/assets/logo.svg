@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260">
+  <g transform="translate(20, 15)">
+    <!-- Pencil body -->
+    <path d="M210 80l-30-30-150 150v30h30l150-150z" fill="#f4c542" stroke="#000" stroke-width="1"/>
+    <!-- Pencil tip -->
+    <path d="M30 230l-10 30 30-10z" fill="#ff9250" stroke="#000" stroke-width="1"/>
+    <!-- Pencil eraser -->
+    <path d="M180 50l30 30 20-20-30-30z" fill="#ff6b6b" stroke="#000" stroke-width="1"/>
+  </g>
+</svg> 

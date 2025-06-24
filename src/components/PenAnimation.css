@@ -1,0 +1,49 @@
+/* Conteneur rond */
+.pen-animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+  width: 140px;
+  margin: 10px auto;
+  border-radius: 70px;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Crayon qui oscille simplement au centre */
+.pen-animation-oscillating {
+  position: absolute;
+  top: 50%; /* Centré verticalement */
+  left: 50%; /* Centré horizontalement */
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%) rotate(0deg); /* Position initiale centrée */
+  transform-origin: center center;
+  animation: simpleOscillation 2s ease-in-out infinite;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%234CAF50' d='M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: drop-shadow(0 0 8px rgba(76, 175, 80, 0.7));
+}
+
+/* Animation simple d'oscillation */
+@keyframes simpleOscillation {
+  0%, 100% { 
+    transform: translate(-50%, -50%) rotate(-10deg);
+  }
+  50% { 
+    transform: translate(-50%, -50%) rotate(10deg);
+  }
+}
+
+/* Point de suspension (pivot visuel) */
+.pen-animation-oscillating::before {
+  /* Suppression du point de suspension */
+}
+
+/* Ligne de suspension - comme un fil */
+.pen-animation-oscillating::after {
+  /* Suppression de la tige de suspension */
+}

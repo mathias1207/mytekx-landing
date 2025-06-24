@@ -1,0 +1,200 @@
+.stats-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(90, 84, 249, 0.1);
+  transition: all 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  border-color: rgba(90, 84, 249, 0.3);
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.stats-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  color: #2D46B9;
+  margin: 0;
+}
+
+.current-plan-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #5A54F9, #8A4FFF);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.current-plan-badge .plan-icon {
+  font-size: 1rem;
+  color: #FFD700;
+}
+
+.stats-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.stats-section {
+  background: rgba(90, 84, 249, 0.03);
+  padding: 1.2rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.stats-section:hover {
+  background: rgba(90, 84, 249, 0.06);
+}
+
+.stats-section h4 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.stat-item {
+  margin-bottom: 1rem;
+}
+
+.stat-item:last-child {
+  margin-bottom: 0;
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: #333;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: #4CAF50;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.stat-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stat-icon {
+  color: #5A54F9;
+  font-size: 1.2rem;
+}
+
+/* Loading state */
+.stats-card.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f0f0f0;
+  border-top: 3px solid #5A54F9;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error state */
+.stats-card.error {
+  text-align: center;
+  color: #ff4444;
+  padding: 2rem;
+}
+
+.retry-button {
+  background: #5A54F9;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  font-weight: 500;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retry-button:hover {
+  background: #4540cc;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(90, 84, 249, 0.3);
+}
+
+/* Empty state */
+.stats-card.empty {
+  text-align: center;
+  color: #666;
+  padding: 2rem;
+}
+
+/* Not authenticated state */
+.stats-card.not-authenticated {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(90, 84, 249, 0.05), rgba(138, 79, 255, 0.03));
+}
+
+.stats-card.not-authenticated .stats-header h3 {
+  color: #666;
+  justify-content: center;
+}
+
+.stats-message {
+  margin-top: 1rem;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+} 

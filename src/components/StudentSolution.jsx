@@ -1,0 +1,326 @@
+import React from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
+import { 
+  FaGraduationCap, FaClock, FaBrain, FaChartLine, 
+  FaUsers, FaBook, FaLightbulb, FaCheck, FaArrowLeft,
+  FaRocket, FaFileAlt, FaSearch, FaExchangeAlt
+} from 'react-icons/fa';
+import './StudentSolution.css';
+
+export default function StudentSolution({ onBack }) {
+  const { language } = useLanguage();
+
+  const content = {
+    fr: {
+      title: "MyTekX pour les étudiants",
+      subtitle: "Transformez votre façon d'apprendre et optimisez votre temps d'étude",
+      mainBenefits: [
+        {
+          icon: <FaClock />,
+          title: "Gagnez du temps",
+          description: "Convertissez instantanément vos supports de cours en documents structurés et exploitables"
+        },
+        {
+          icon: <FaBrain />,
+          title: "Améliorez votre compréhension",
+          description: "Bénéficiez d'explications détaillées et d'exemples supplémentaires générés par notre IA"
+        },
+        {
+          icon: <FaChartLine />,
+          title: "Optimisez vos révisions",
+          description: "Accédez à des résumés intelligents et des points clés pour des révisions efficaces"
+        }
+      ],
+      features: {
+        title: "Fonctionnalités spéciales pour étudiants",
+        list: [
+          {
+            icon: <FaFileAlt />,
+            title: "Synthèse automatique",
+            description: "Transformez automatiquement vos notes de cours en documents structurés avec table des matières, index et références"
+          },
+          {
+            icon: <FaSearch />,
+            title: "Recherche intelligente",
+            description: "Retrouvez rapidement n'importe quelle information dans vos documents grâce à notre moteur de recherche sémantique"
+          },
+          {
+            icon: <FaExchangeAlt />,
+            title: "Multi-format",
+            description: "Exportez vos documents en LaTeX, PDF, (en Word prochainement) selon vos besoins"
+          },
+          {
+            icon: <FaLightbulb />,
+            title: "Suggestions d'apprentissage",
+            description: "Recevez des recommandations personnalisées pour approfondir votre compréhension"
+          }
+        ]
+      },
+      useCases: {
+        title: "Comment les étudiants utilisent MyTekX",
+        cases: [
+          {
+            title: "Préparation aux examens",
+            description: "Créez des fiches de révision structurées à partir de vos cours et obtenez des exercices supplémentaires générés par l'IA"
+          },
+          {
+            title: "Travaux de groupe (prochainement)",
+            description: "Partagez et collaborez sur des documents avec vos camarades, avec un suivi des modifications en temps réel"
+          },
+          {
+            title: "Rédaction de mémoire",
+            description: "Organisez vos recherches et rédigez votre mémoire avec notre assistant IA spécialisé"
+          }
+        ]
+      },
+      testimonials: {
+        title: "Ce que disent les étudiants",
+        list: [
+          {
+            name: "Marie L.",
+            study: "Master en Mathématiques",
+            text: "MyTekX m'a permis de gagner un temps précieux dans la préparation de mes examens. La conversion automatique des slides en documents structurés est bluffante !"
+          },
+          {
+            name: "Thomas B.",
+            study: "Licence de Physique",
+            text: "Les explications générées par l'IA m'ont vraiment aidé à mieux comprendre les concepts complexes. Un outil indispensable pour les étudiants en sciences."
+          },
+          {
+            name: "Sarah K.",
+            study: "École d'ingénieur",
+            text: "La possibilité de collaborer avec mes camarades sur les mêmes documents a révolutionné notre façon de travailler en groupe."
+          }
+        ]
+      },
+      pricing: {
+        title: "Tarifs spéciaux étudiants",
+        description: "Profitez de MyTekX à prix réduit avec votre email étudiant",
+        price: "5€/mois",
+        features: [
+          "Conversion illimitée de documents",
+          "Accès à toutes les fonctionnalités premium",
+          "Support prioritaire",
+          "Collaboration en temps réel"
+        ]
+      },
+      cta: {
+        title: "Prêt à transformer votre façon d'étudier ?",
+        button: "Commencer gratuitement",
+        trial: "Essai gratuit de 14 jours - Sans engagement"
+      }
+    },
+    en: {
+      title: "MyTekX for Students",
+      subtitle: "Transform your learning experience and optimize your study time",
+      mainBenefits: [
+        {
+          icon: <FaClock />,
+          title: "Save Time",
+          description: "Instantly convert your course materials into structured, usable documents"
+        },
+        {
+          icon: <FaBrain />,
+          title: "Improve Understanding",
+          description: "Get detailed explanations and additional examples generated by our AI"
+        },
+        {
+          icon: <FaChartLine />,
+          title: "Optimize Revision",
+          description: "Access smart summaries and key points for efficient revision"
+        }
+      ],
+      features: {
+        title: "Special Features for Students",
+        list: [
+          {
+            icon: <FaFileAlt />,
+            title: "Automatic Synthesis",
+            description: "Automatically transform your course notes into structured documents with table of contents, index, and references"
+          },
+          {
+            icon: <FaSearch />,
+            title: "Smart Search",
+            description: "Quickly find any information in your documents with our semantic search engine"
+          },
+          {
+            icon: <FaExchangeAlt />,
+            title: "Multi-format",
+            description: "Export your documents in LaTeX, PDF, or Word according to your needs"
+          },
+          {
+            icon: <FaLightbulb />,
+            title: "Learning Suggestions",
+            description: "Receive personalized recommendations to deepen your understanding"
+          }
+        ]
+      },
+      useCases: {
+        title: "How Students Use MyTekX",
+        cases: [
+          {
+            title: "Exam Preparation",
+            description: "Create structured revision sheets from your courses and get additional AI-generated exercises"
+          },
+          {
+            title: "Group Work",
+            description: "Share and collaborate on documents with your classmates, with real-time change tracking"
+          },
+          {
+            title: "Thesis Writing",
+            description: "Organize your research and write your thesis with our specialized AI assistant"
+          }
+        ]
+      },
+      testimonials: {
+        title: "What Students Say",
+        list: [
+          {
+            name: "Marie L.",
+            study: "Master's in Mathematics",
+            text: "MyTekX has saved me precious time in exam preparation. The automatic conversion of slides to structured documents is amazing!"
+          },
+          {
+            name: "Thomas B.",
+            study: "Physics Bachelor",
+            text: "The AI-generated explanations really helped me better understand complex concepts. An essential tool for science students."
+          },
+          {
+            name: "Sarah K.",
+            study: "Engineering School",
+            text: "The ability to collaborate with my classmates on the same documents has revolutionized our group work."
+          }
+        ]
+      },
+      pricing: {
+        title: "Special Student Pricing",
+        description: "Get MyTekX at a reduced price with your student email",
+        price: "5€/month",
+        features: [
+          "Unlimited document conversion",
+          "Access to all premium features",
+          "Priority support",
+          "Real-time collaboration"
+        ]
+      },
+      cta: {
+        title: "Ready to transform your study method?",
+        button: "Start for free",
+        trial: "14-day free trial - No commitment"
+      }
+    }
+  };
+
+  // Sélectionner le contenu en fonction de la langue
+  const {
+    title,
+    subtitle,
+    mainBenefits,
+    features,
+    useCases,
+    testimonials,
+    pricing,
+    cta
+  } = content[language];
+
+  return (
+    <div className="student-solution">
+        <div className="fixed-back-button">
+        <button className="back-icon" onClick={onBack}>
+            <FaArrowLeft />
+        </button>
+        </div>
+
+      {/* Hero Section */}
+      <section className="student-hero">
+        <div className="hero-content">
+          <h1>{title}</h1>
+          <p className="hero-subtitle">{subtitle}</p>
+        </div>
+      </section>
+
+      {/* Main Benefits */}
+      <section className="main-benefits">
+        <div className="benefits-grid">
+          {mainBenefits.map((benefit, index) => (
+            <div key={index} className="benefit-card">
+              <div className="benefit-icon">{benefit.icon}</div>
+              <h3>{benefit.title}</h3>
+              <p>{benefit.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="student-features">
+        <h2>{features.title}</h2>
+        <div className="features-grid">
+          {features.list.map((feature, index) => (
+            <div key={index} className="feature-card">
+              <div className="feature-icon">{feature.icon}</div>
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Use Cases */}
+      <section className="use-cases">
+        <h2>{useCases.title}</h2>
+        <div className="use-cases-grid">
+          {useCases.cases.map((useCase, index) => (
+            <div key={index} className="use-case-card">
+              <h3>{useCase.title}</h3>
+              <p>{useCase.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="testimonials">
+        <h2>{testimonials.title}</h2>
+        <div className="testimonials-grid">
+          {testimonials.list.map((testimonial, index) => (
+            <div key={index} className="testimonial-card">
+              <p className="testimonial-text">"{testimonial.text}"</p>
+              <div className="testimonial-author">
+                <strong>{testimonial.name}</strong>
+                <span>{testimonial.study}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="student-pricing">
+        <h2>{pricing.title}</h2>
+        <p>{pricing.description}</p>
+        <div className="pricing-card">
+          <div className="price">{pricing.price}</div>
+          <ul className="features-list">
+            {pricing.features.map((feature, index) => (
+              <li key={index}>
+                <FaCheck className="check-icon" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="student-cta">
+        <h2>{cta.title}</h2>
+        <button className="cta-button">
+          {cta.button}
+          <FaRocket className="button-icon" />
+        </button>
+        <p className="trial-text">{cta.trial}</p>
+      </section>
+    </div>
+  );
+} 

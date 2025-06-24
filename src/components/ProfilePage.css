@@ -1,0 +1,1350 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+.profile-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  background: #f8f9fc;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Suppression du logo watermark en arrière-plan */
+.profile-page::before {
+  display: none;
+}
+
+.profile-page-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+  background: linear-gradient(135deg, #2D46B9 0%, #5A54F9 50%, #8A4FFF 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(45, 70, 185, 0.15);
+}
+
+.profile-page-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+  letter-spacing: -0.03em;
+}
+
+/* Suppression du logo à côté du titre */
+.profile-page-title::before {
+  display: none;
+}
+
+.fixed-back-button {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 9999; /* très haut pour être toujours au-dessus */
+}
+
+.back-icon {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #5A54F9;
+  padding: 0.4rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-icon:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #3f3ac7;
+}
+
+.profile-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.profile-loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(90, 84, 249, 0.1);
+  border-radius: 50%;
+  border-top-color: #5A54F9;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.profile-sections {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.profile-section-placeholder {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(90, 84, 249, 0.1);
+  min-height: 150px;
+  transition: all 0.3s ease;
+}
+
+.profile-section-placeholder:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  border-color: rgba(90, 84, 249, 0.3);
+}
+
+/* Suppression des petits logos dans chaque section */
+.profile-section-placeholder::before {
+  display: none;
+}
+
+.profile-section-placeholder h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #2D46B9;
+  font-size: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.profile-section-placeholder p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Style pour les erreurs */
+.profile-error {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.profile-error button {
+  background: #5A54F9;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  font-weight: 500;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-error button:hover {
+  background: #2D46B9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(45, 70, 185, 0.3);
+}
+
+@media (min-width: 768px) {
+  .profile-sections {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .profile-sections > *:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-sections {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .profile-sections > *:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-page {
+    padding: 1rem;
+  }
+  
+  .profile-page-title {
+    font-size: 1.8rem;
+  }
+  
+  .profile-page-title::before {
+    font-size: 2rem;
+  }
+  
+  .back-button span {
+    display: none;
+  }
+}
+
+/* Styles pour le logo à côté du titre */
+.logo-accent {
+  display: none;
+}
+
+/* Styles pour les icons de section */
+.section-icon {
+  display: none;
+}
+
+.mytekx-logo {
+  display: none;
+}
+
+/* Logos flottants décoratifs */
+.floating-logo {
+  display: none;
+}
+
+/* Styles pour la section de documents */
+.documents-section {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(90, 84, 249, 0.1);
+  min-height: 150px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.documents-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  border-color: rgba(90, 84, 249, 0.3);
+}
+
+.documents-section::before {
+  content: 'ΘΞ';
+  position: absolute;
+  bottom: -5px;
+  right: 10px;
+  font-size: 60px;
+  opacity: 0.15;
+  font-weight: bold;
+  color: #5A54F9;
+  transition: opacity 0.3s ease;
+}
+
+.documents-section:hover::before {
+  opacity: 0.25;
+}
+
+.documents-section h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #2D46B9;
+  font-size: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.documents-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #5A54F9, #8A4FFF);
+  transition: width 0.3s ease;
+  border-radius: 3px;
+}
+
+.documents-section:hover h3::after {
+  width: 100%;
+}
+
+/* Styles pour les contrôles */
+.documents-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.search-container {
+  position: relative;
+  width: 60%;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 16px 10px 45px; /* Augmentation du padding à gauche pour l'icône */
+  border-radius: 30px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  background: white;
+  color: #333;
+  transition: all 0.2s ease-in-out;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #7f6fff;
+  box-shadow: 0 0 0 3px rgba(122, 112, 255, 0.3);
+  background-color: #fff;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 16px; /* Ajustement de la position de l'icône */
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #5a54f9;
+  pointer-events: none;
+  z-index: 2; /* Assurer que l'icône est au-dessus de l'input */
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.filter-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #5A54F9;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.filter-select {
+  padding: 10px 15px 10px 38px;
+  border-radius: 30px;
+  border: 1px solid rgba(90, 84, 249, 0.2);
+  font-size: 14px;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  color: #333;
+  transition: all 0.3s;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #5A54F9;
+  box-shadow: 0 0 0 2px rgba(90, 84, 249, 0.1);
+  background: white;
+}
+
+/* Styles pour le chargement */
+.documents-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.documents-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(90, 84, 249, 0.1);
+  border-radius: 50%;
+  border-top-color: #5A54F9;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 15px;
+}
+
+/* Styles pour le message "Pas de documents" */
+.no-documents {
+  text-align: center;
+  padding: 30px;
+  color: #666;
+}
+
+.no-documents-icon {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: rgba(90, 84, 249, 0.5);
+}
+
+/* Styles pour la liste de documents */
+.documents-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.document-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgba(90, 84, 249, 0.1);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: visible;
+  gap: 15px;
+  position: relative;
+  z-index: 1;
+}
+
+.document-card::before {
+  content: 'ΘΞ';
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  font-size: 40px;
+  color: rgba(90, 84, 249, 0.05);
+  font-weight: bold;
+  z-index: 0;
+  transform: rotate(-5deg);
+}
+
+.document-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  border-color: rgba(90, 84, 249, 0.2);
+  position: relative;
+  z-index: 5;
+}
+
+.document-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #2D46B9, #5A54F9);
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  font-size: 18px;
+  flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(45, 70, 185, 0.2);
+}
+
+.document-info {
+  flex: 1;
+  min-width: 0;
+  margin-right: 10px;
+}
+
+.document-title {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2D46B9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.document-filename {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.document-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+  color: #888;
+}
+
+.document-date,
+.document-pages,
+.document-type {
+  background: rgba(90, 84, 249, 0.05);
+  padding: 3px 8px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.document-type {
+  color: #5A54F9;
+  font-weight: 500;
+}
+
+/* Styles pour les boutons d'action et leurs tooltips */
+.document-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: stretch;
+  min-width: 90px;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.document-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  width: 100%;
+  position: relative;
+  /* Transition uniquement sur opacity pour éviter les changements de taille */
+  transition: opacity 0.2s ease;
+}
+
+.document-action svg {
+  font-size: 14px;
+}
+
+.document-action .action-label {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Couleurs de base des boutons */
+.document-action.view {
+  background-color: #4285f4;
+}
+
+.document-action.download {
+  background-color: #34a853;
+}
+
+.document-action.report {
+  background-color: #fbbc05;
+}
+
+.document-action.delete {
+  background-color: #f44336;
+}
+
+/* Tooltips - système CSS pur */
+.document-action::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  background-color: #333;
+  color: white;
+  font-size: 13px;
+  font-weight: normal;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s;
+  pointer-events: none;
+  z-index: 10;
+  min-width: 100px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Petite flèche sous le tooltip */
+.document-action::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #333;
+  margin-bottom: -2px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Afficher le tooltip au survol */
+.document-action:hover::after,
+.document-action:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Styles spécifiques pour chaque type de bouton */
+.document-action.view::after {
+  background: #4285f4;
+}
+
+.document-action.view::before {
+  border-top-color: #4285f4;
+}
+
+.document-action.download::after {
+  background: #34a853;
+}
+
+.document-action.download::before {
+  border-top-color: #34a853;
+}
+
+.document-action.report::after {
+  background: #fbbc05;
+}
+
+.document-action.report::before {
+  border-top-color: #fbbc05;
+}
+
+.document-action.delete::after {
+  background: #f44336;
+}
+
+.document-action.delete::before {
+  border-top-color: #f44336;
+}
+
+/* Important: s'assurer que les conteneurs n'ont pas d'overflow pour que les tooltips soient visibles */
+.document-card,
+.documents-list,
+.documents-view,
+.profile-page {
+  overflow: visible !important;
+}
+
+/* Ne pas changer l'apparence des boutons au survol pour éviter les changements de taille */
+.document-action.view:hover {
+  background-color: #4285f4;
+}
+
+.document-action.download:hover {
+  background-color: #34a853;
+}
+
+.document-action.report:hover {
+  background-color: #fbbc05;
+}
+
+.document-action.delete:hover {
+  background-color: #f44336;
+}
+
+/* Styles responsifs */
+@media (max-width: 768px) {
+  .documents-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .documents-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Styles pour la carte des documents cliquable */
+.documents-card {
+  cursor: pointer;
+  border-left: 4px solid #4285f4 !important;
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(66, 133, 244, 0.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.documents-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(66, 133, 244, 0.1) !important;
+  background-color: rgba(66, 133, 244, 0.08) !important;
+}
+
+.documents-card .section-icon {
+  background: linear-gradient(135deg, #3367d6, #4285f4) !important;
+}
+
+.document-count {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.document-badge {
+  background-color: #5A54F9;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Styles pour la vue des documents */
+.documents-view {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  margin-top: 1.5rem;
+  min-height: 300px;
+}
+
+.no-documents-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.no-documents-icon.large {
+  font-size: 64px;
+  color: rgba(66, 133, 244, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+/* Amélioration des styles pour la liste de documents */
+.documents-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .documents-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Styles pour la modale de confirmation de suppression */
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.delete-modal {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.delete-modal-header {
+  background-color: #f44336;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.delete-modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.delete-icon {
+  font-size: 1.5rem;
+}
+
+.delete-modal-body {
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.delete-modal-body p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.document-to-delete {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.document-to-delete strong {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.document-to-delete .document-filename {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.delete-modal-footer {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  background-color: #f9f9f9;
+}
+
+.cancel-button {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-button:hover {
+  background-color: #d0d0d0;
+}
+
+.confirm-delete-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.confirm-delete-button:hover {
+  background-color: #d32f2f;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style pour le container de l'en-tête de section des documents */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+/* Style personnalisé pour l'infobulle */
+.tooltip-button {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Nettoyer les styles suivants qui entrent en conflit avec nos tooltips */
+.custom-tooltip,
+.custom-tooltip::after,
+.document-action:hover .custom-tooltip,
+[title]:hover::before,
+[title]:hover::after,
+[title]:hover::before {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Styles pour l'en-tête de section */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+/* Système de notation */
+.document-rating {
+  display: flex;
+  margin-top: 8px;
+  gap: 2px;
+}
+
+.rating-star {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 18px;
+  color: #ccc;
+  transition: transform 0.1s ease;
+  outline: none; /* Supprime l'outline par défaut */
+}
+
+.rating-star:hover {
+  transform: scale(1.2);
+}
+
+.rating-star:focus {
+  outline: none; /* Supprime l'outline au focus */
+  box-shadow: none; /* Supprime également toute ombre possible */
+}
+
+.star-filled {
+  color: #fbbc05;
+}
+
+.star-empty {
+  color: #ccc;
+}
+
+/* Modale de signalement */
+.report-modal {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.report-modal-header {
+  background-color: #fbbc05;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.report-modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.report-icon {
+  font-size: 1.5rem;
+}
+
+.report-modal-body {
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.report-modal-body p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.document-to-report {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.document-to-report strong {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.report-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.report-textarea:focus {
+  outline: none;
+  border-color: #fbbc05;
+  box-shadow: 0 0 0 2px rgba(251, 188, 5, 0.2);
+}
+
+.report-modal-footer {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  background-color: #f9f9f9;
+}
+
+.confirm-report-button {
+  background-color: #fbbc05;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.confirm-report-button:hover {
+  background-color: #e6a700;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.confirm-report-button:disabled {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Mise en forme de la carte document pour les notations */
+.document-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Styles pour la section des paramètres */
+.settings-section {
+  grid-column: span 2;
+}
+
+.settings-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.settings-category {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.settings-category:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
+}
+
+.settings-category-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2D46B9;
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.settings-icon {
+  color: #5A54F9;
+}
+
+.settings-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.settings-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.settings-option:hover {
+  background-color: rgba(90, 84, 249, 0.05);
+}
+
+.settings-option:active {
+  background-color: rgba(90, 84, 249, 0.1);
+  transform: translateY(1px);
+}
+
+.settings-option-label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.settings-option-description {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.settings-option-badge {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background-color: rgba(90, 84, 249, 0.1);
+  color: #5A54F9;
+}
+
+.settings-option-badge.free {
+  background-color: rgba(52, 168, 83, 0.1);
+  color: #34A853;
+}
+
+.settings-option-badge.soon {
+  background-color: rgba(251, 188, 5, 0.1);
+  color: #FBBC05;
+}
+
+.settings-option-label.warning {
+  color: #f44336;
+}
+
+@media (max-width: 768px) {
+  .settings-section {
+    grid-column: span 1;
+  }
+  
+  .settings-categories {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Styles pour la carte des paramètres cliquable */
+.settings-card {
+  cursor: pointer;
+  border-left: 4px solid #5A54F9 !important;
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(90, 84, 249, 0.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.settings-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(90, 84, 249, 0.1) !important;
+  background-color: rgba(90, 84, 249, 0.08) !important;
+}
+
+.settings-header-icon {
+  font-size: 1.3rem;
+  color: #5A54F9;
+  margin-left: 0.5rem;
+}
+
+/* Style pour la vue des paramètres */
+.settings-view {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  margin-top: 1.5rem;
+  min-height: 300px;
+}
+
+/* Styles pour la section des paramètres */
+.settings-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.settings-category {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.settings-category:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
+}
+
+.settings-category-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2D46B9;
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.settings-icon {
+  color: #5A54F9;
+}
+
+.settings-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.settings-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.settings-option:hover {
+  background-color: rgba(90, 84, 249, 0.05);
+}
+
+.settings-option:active {
+  background-color: rgba(90, 84, 249, 0.1);
+  transform: translateY(1px);
+}
+
+.settings-option-label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.settings-option-description {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.settings-option-badge {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background-color: rgba(90, 84, 249, 0.1);
+  color: #5A54F9;
+}
+
+.settings-option-badge.free {
+  background-color: rgba(52, 168, 83, 0.1);
+  color: #34A853;
+}
+
+.settings-option-badge.soon {
+  background-color: rgba(251, 188, 5, 0.1);
+  color: #FBBC05;
+  transform: rotate(5deg); /* Orientation */
+
+}
+
+.settings-option-label.warning {
+  color: #f44336;
+}
+
+@media (max-width: 768px) {
+  .settings-section {
+    grid-column: span 1;
+  }
+  
+  .settings-categories {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Styles pour la carte du tableau de bord */
+.dashboard-card {
+  cursor: pointer;
+  border-left: 4px solid #5A54F9 !important;
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(90, 84, 249, 0.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(90, 84, 249, 0.1) !important;
+  background-color: rgba(90, 84, 249, 0.08) !important;
+}
+
+.dashboard-header-icon {
+  font-size: 1.3rem;
+  color: #5A54F9;
+  margin-left: 0.5rem;
+} 

@@ -1,0 +1,571 @@
+.account-section {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background: #f8fafc;
+}
+
+.account-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.account-icon {
+  font-size: 2rem;
+  color: #667eea;
+}
+
+.account-header h1 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.account-header p {
+  margin: 0;
+  color: #718096;
+  font-size: 1rem;
+}
+
+/* Messages */
+.message {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.message.success {
+  background: #f0fff4;
+  color: #22543d;
+  border: 1px solid #9ae6b4;
+}
+
+.message.error {
+  background: #fed7d7;
+  color: #742a2a;
+  border: 1px solid #feb2b2;
+}
+
+/* Cartes de section */
+.account-section-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.card-header h2 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.edit-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  color: #667eea;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.edit-button:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Formulaire de profil */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  color: #4a5568;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.form-group input:disabled,
+.form-group select:disabled,
+.form-group textarea:disabled {
+  background: #f7fafc;
+  color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Formulaire de mot de passe */
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1rem;
+}
+
+.password-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input input {
+  flex: 1;
+  padding-right: 3rem;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  color: #a0aec0;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: #667eea;
+}
+
+/* Actions du formulaire */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.save-button {
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.save-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Actions du compte */
+.account-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #ed8936 0%, #f56500 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(237, 137, 54, 0.3);
+}
+
+.delete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: #e53e3e;
+  border: 2px solid #e53e3e;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-button:hover {
+  background: #e53e3e;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(229, 62, 62, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-actions {
+    justify-content: stretch;
+  }
+  
+  .save-button {
+    width: 100%;
+  }
+  
+  .account-actions {
+    gap: 0.75rem;
+  }
+  
+  .logout-button,
+  .delete-button {
+    width: 100%;
+  }
+} 
+
+/* ===== DARK MODE STYLES ===== */
+
+/* Base */
+.dark .account-section {
+  background: transparent;
+}
+
+/* Header */
+.dark .account-header {
+  background: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark .account-icon {
+  color: var(--primary-color);
+}
+
+.dark .account-header h1 {
+  color: var(--text-color);
+}
+
+.dark .account-header p {
+  color: var(--text-secondary);
+}
+
+/* Messages */
+.dark .message.success {
+  background: rgba(34, 84, 61, 0.1);
+  color: #68d391;
+  border: 1px solid rgba(104, 211, 145, 0.3);
+}
+
+.dark .message.error {
+  background: rgba(116, 42, 42, 0.1);
+  color: #fc8181;
+  border: 1px solid rgba(252, 129, 129, 0.3);
+}
+
+/* Section Cards */
+.dark .account-section-card {
+  background: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark .account-section-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dark .card-header {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dark .card-header h2 {
+  color: var(--text-color);
+}
+
+.dark .edit-button {
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  background: transparent;
+}
+
+.dark .edit-button:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Form Elements */
+.dark .form-group label {
+  color: var(--text-color);
+}
+
+.dark .form-group input,
+.dark .form-group select,
+.dark .form-group textarea {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.dark .form-group input::placeholder,
+.dark .form-group textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+.dark .form-group input:disabled,
+.dark .form-group select:disabled,
+.dark .form-group textarea:disabled {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+}
+
+.dark .form-group input:focus,
+.dark .form-group select:focus,
+.dark .form-group textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Password Form */
+.dark .password-toggle {
+  color: var(--text-secondary);
+}
+
+.dark .password-toggle:hover {
+  color: var(--primary-color);
+}
+
+/* Form Actions */
+.dark .form-actions {
+  border-top: 1px solid var(--border-color);
+}
+
+.dark .save-button {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #764ba2 100%);
+  color: white;
+}
+
+.dark .save-button:hover:not(:disabled) {
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.dark .save-button:disabled {
+  opacity: 0.6;
+}
+
+/* Account Actions */
+.dark .logout-button {
+  background: linear-gradient(135deg, #ed8936 0%, #f56500 100%);
+  color: white;
+}
+
+.dark .logout-button:hover {
+  box-shadow: 0 4px 15px rgba(237, 137, 54, 0.4);
+}
+
+.dark .delete-button {
+  background: transparent;
+  color: #fc8181;
+  border: 2px solid #fc8181;
+}
+
+.dark .delete-button:hover {
+  background: #fc8181;
+  color: var(--bg-color);
+  box-shadow: 0 4px 15px rgba(252, 129, 129, 0.4);
+}
+
+/* Enhanced transitions for dark mode */
+.dark .account-section-card {
+  transition: all 0.2s ease;
+}
+
+.dark .edit-button {
+  transition: all 0.3s ease;
+}
+
+.dark .form-group input,
+.dark .form-group select,
+.dark .form-group textarea {
+  transition: all 0.3s ease;
+}
+
+.dark .save-button {
+  transition: all 0.3s ease;
+}
+
+.dark .logout-button,
+.dark .delete-button {
+  transition: all 0.3s ease;
+}
+
+/* Responsive adjustments for dark mode */
+@media (max-width: 768px) {
+  .dark .account-section {
+    gap: 1.5rem;
+  }
+  
+  .dark .account-header {
+    padding: 1rem;
+  }
+  
+  .dark .account-section-card {
+    padding: 1.5rem;
+  }
+  
+  .dark .card-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+    margin-bottom: 1.5rem;
+  }
+  
+  .dark .edit-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .dark .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .dark .form-actions {
+    justify-content: stretch;
+    margin-top: 1rem;
+  }
+  
+  .dark .save-button {
+    width: 100%;
+  }
+  
+  .dark .account-actions {
+    gap: 0.75rem;
+  }
+  
+  .dark .logout-button,
+  .dark .delete-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .dark .account-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .dark .account-icon {
+    font-size: 1.5rem;
+  }
+  
+  .dark .account-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .dark .account-section-card {
+    padding: 1rem;
+  }
+  
+  .dark .card-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .dark .form-group input,
+  .dark .form-group select,
+  .dark .form-group textarea {
+    font-size: 0.9rem;
+  }
+  
+  .dark .save-button,
+  .dark .logout-button,
+  .dark .delete-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+} 

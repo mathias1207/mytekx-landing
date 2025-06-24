@@ -1,0 +1,599 @@
+/* Assurez-vous que l'application prend tout l'écran */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Réinitialisez la boîte d'affichage pour tous les éléments */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+#root {
+  background-color: transparent !important;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Animations de transition */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 800ms ease-in-out;
+}
+
+/* Conteneur principal avec transition */
+.app-container {
+  margin: 0;
+  margin-top: 0px;
+  margin-bottom: 1px;
+  width: 100%;
+  padding: 0;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  animation: fadeIn 1.2s ease-in-out;
+  will-change: opacity, transform;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Styles pour l'en-tête de l'application - Version modernisée */
+.app-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 24px !important;
+  margin-bottom: 2rem;
+  padding: 1.25rem 2.5rem;
+  animation: fadeInSlideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+  will-change: opacity, transform;
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.app-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  color: white;
+  margin: 0;
+  text-align: center;
+  flex-grow: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(135deg, #fff 0%, #E2E8F0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.app-title::after {
+  content: 'ΘΞ';
+  position: absolute;
+  left: -35px;
+  background: linear-gradient(135deg, #6366F1 0%, #818CF8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 1.8rem;
+  font-weight: 900;
+  opacity: 0.9;
+}
+
+/* Style modernisé pour le badge Beta */
+.beta-badge {
+  font-size: 0.7rem;
+  background: linear-gradient(135deg, #6366F1 0%, #818CF8 100%);
+  color: white;
+  border-radius: 20px;
+  padding: 4px 8px;
+  margin-left: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: inline-block;
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Style modernisé pour les boutons du header */
+.back-button,
+.profile-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px !important;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  backdrop-filter: blur(8px);
+}
+
+.back-button:hover,
+.profile-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.user-name {
+  color: #E2E8F0;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px !important;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-name:before {
+  content: '👤';
+  margin-right: 10px;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.logo-container {
+  margin-right: 1.5rem;
+}
+
+.back-button {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  backdrop-filter: none;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.app-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: white;
+  margin: 0;
+  margin-top: 10px;
+  margin-left: 300px;
+  text-align: center;
+  flex-grow: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-name {
+  color: white;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px !important;
+  display: flex;
+  align-items: center;
+  backdrop-filter: none;
+}
+
+.user-name:before {
+  content: '👤';
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+.profile-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: none;
+}
+
+.profile-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.app-header button, 
+.profile-button, 
+.back-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: none;
+}
+
+.user-name {
+  border-radius: 6px !important;
+  backdrop-filter: none;
+}
+
+/* Style responsive pour les petits écrans */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .app-title {
+    order: 1;
+    margin-bottom: 0.5rem;
+  }
+  
+  .back-button {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .user-info {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Styles améliorés pour les boutons de navigation */
+.language-toggle {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+  animation: fadeInSlideUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+  will-change: opacity, transform;
+}
+
+/* Style commun pour tous les boutons de navigation */
+.language-switch-btn,
+.back-to-home-btn {
+  background-color: #f8f9fc;
+  color: #5A54F9;
+  border: 1px solid rgba(90, 84, 249, 0.2);
+  border-radius: 50px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.language-switch-btn:hover,
+.back-to-home-btn:hover {
+  background-color: #5A54F9;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(90, 84, 249, 0.2);
+}
+
+.language-switch-btn:active,
+.back-to-home-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 3px rgba(90, 84, 249, 0.2);
+}
+
+.back-to-home-btn {
+  background-color: #f0f1fe;
+  color: #5A54F9;
+  font-weight: 600;
+}
+
+/* Style spécifique pour les boutons désactivés */
+.language-switch-btn:disabled,
+.back-to-home-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Styles pour la page d'accueil */
+.language-toggle-landing {
+  position: fixed;
+  top: 12px; /* identique au header */
+  right: 2rem;
+  z-index: 10;
+}
+
+.language-button {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(21, 17, 17, 0.95);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.2rem;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.language-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+.title-container {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.title-container h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #2D46B9 0%, #5A54F9 50%, #8A4FFF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.03em;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-brand {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2D46B9 0%, #5A54F9 50%, #8A4FFF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.03em;
+}
+
+.title-container .nav-brand {
+  margin: 0;
+  padding: 0;
+}
+
+.app-description {
+  text-align: center;
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.4;
+  animation: fadeInSlideUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+  will-change: opacity, transform;
+}
+
+.username-link {
+  text-decoration: none;
+  color: #444;
+  transition: color 0.2s ease;
+}
+
+.username-link:hover {
+  color: #4059AD;
+  text-decoration: underline;
+}
+
+/* Logo et titre dans le header */
+.app-header h1 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 2.2rem;
+  margin: 0;
+  color: white;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-header .logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Boutons dans le header */
+.app-header button {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.app-header button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.language-toggle {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.language-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.language-toggle svg {
+  margin-right: 6px;
+}
+
+.app-header .language-button {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 1rem;
+}
+
+.app-header .language-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
