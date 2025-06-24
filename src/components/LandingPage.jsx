@@ -125,10 +125,7 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
   const { t, language, setLanguage } = useLanguage();
   const { isDarkMode, toggleTheme } = useTheme();
   const [docCount, setDocCount] = useState(500);
-  const [showBetaModal, setShowBetaModal] = useState(false);
   const [activeBillingPeriod, setActiveBillingPeriod] = useState('monthly'); // Nouvel état pour suivre le mode d'affichage des prix
-  const [betaCode, setBetaCode] = useState('');
-  const [codeError, setCodeError] = useState(false);
   const [showSolutionsMenu, setShowSolutionsMenu] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loginEmail, setLoginEmail] = useState('');
@@ -138,7 +135,6 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [hasBetaAccess, setHasBetaAccess] = useState(false);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -178,7 +174,7 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
     };
   }, []);
 
-  // Vérifier si l'utilisateur est déjà connecté et a accès à la beta
+  // Vérifier si l'utilisateur est déjà connecté
   useEffect(() => {
     // Observer for authentication state changes
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -190,19 +186,9 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
         if (localStorage.getItem('userEmail') === currentUser.email) {
           localStorage.setItem('isLoggedIn', 'true');
         }
-        
-        // Check beta access only when user is logged in
-        const storedBetaAccess = localStorage.getItem('hasBetaAccess');
-        if (storedBetaAccess === 'true') {
-          setHasBetaAccess(true);
-        }
       } else {
         setUser(null);
         setIsLoggedIn(false);
-        // Reset beta access when not logged in
-        setHasBetaAccess(false);
-        
-        // We keep the localStorage value for when they log back in
       }
     });
     
@@ -225,61 +211,23 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
     verifyFirestoreAccess();
   }, []);
 
-  const handleBetaCodeSubmit = async () => {
-    if (betaCode === 'MYTEKX2025') {
-      setShowBetaModal(false);
-      setBetaCode('');
-      setCodeError(false);
-      
-      // Si l'utilisateur est connecté, on active l'accès beta
-      if (isLoggedIn) {
-        setHasBetaAccess(true);
-        localStorage.setItem('hasBetaAccess', 'true');
-        
-        // In a real environment, we would store the beta access association 
-        // in the database using Firebase Firestore
-        if (user) {
-          // Here we would save the beta access in Firestore
-          // For now we're just doing a console log
-          console.log(`Beta access granted to user: ${user.email || user.uid}`);
-        }
-        
-        // Démarrer l'application
-        onGetStarted();
-      } else {
-        // Si l'utilisateur n'est pas connecté, afficher le modal de connexion
-        setShowLoginModal(true);
-      }
-    } else {
-      setCodeError(true);
-    }
-  };
-  
   // Fonction qui gère l'ouverture du modal de connexion
   const handleLoginButtonClick = () => {
-    // Si l'utilisateur est déjà connecté et a accès à la beta, démarrer l'application
-    if (isLoggedIn && hasBetaAccess) {
-      onGetStarted();
-      return;
-    }
-    
-    // Si l'utilisateur est connecté mais n'a pas d'accès beta, lui demander le code
+    // Si l'utilisateur est déjà connecté, rediriger vers l'app
     if (isLoggedIn) {
-      setShowBetaModal(true);
+      // Rediriger vers l'app principale qui gère sa propre vérification beta
+      window.location.href = 'https://app.mytekx.io';
       return;
     }
     
-    // Si l'utilisateur n'est pas connecté, lui demander d'abord le code beta
-    setShowBetaModal(true);
+    // Si l'utilisateur n'est pas connecté, ouvrir le modal de connexion
+    setShowLoginModal(true);
   };
 
   // Fermer le modal en appuyant sur Escape
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
-        if (showBetaModal) {
-          setShowBetaModal(false);
-        }
         if (showLoginModal) {
           setShowLoginModal(false);
         }
@@ -291,11 +239,11 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
     
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
-  }, [showBetaModal, showLoginModal, selectedFeature]);
+  }, [showLoginModal, selectedFeature]);
 
   // Empêcher le scroll du body quand un modal est ouvert
   useEffect(() => {
-    if (showBetaModal || showLoginModal || selectedFeature) {
+    if (showLoginModal || selectedFeature) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
@@ -304,7 +252,7 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
     return () => {
       document.body.style.overflow = 'auto';
     };
-  }, [showBetaModal, showLoginModal, selectedFeature]);
+  }, [showLoginModal, selectedFeature]);
   
   // Gérer la fermeture du menu déroulant quand on clique ailleurs sur la page
   useEffect(() => {
@@ -969,13 +917,13 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
   };
 
   const handleCtaClick = () => {
-    // Si déjà connecté et avec accès beta, lancer l'application directement
-    if (isLoggedIn && hasBetaAccess) {
-      onGetStarted();
+    // Si déjà connecté, rediriger vers l'app
+    if (isLoggedIn) {
+      window.location.href = 'https://app.mytekx.io';
       return;
     }
     
-    // Sinon, même logique que pour le bouton de connexion
+    // Sinon, ouvrir le modal de connexion
     handleLoginButtonClick();
   };
 
@@ -1205,35 +1153,26 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
       if (storedBetaAccess === 'true') {
         setHasBetaAccess(true);
         // Démarrer l'application directement
-        onGetStarted();
+        window.location.href = 'https://app.mytekx.io';
       } else {
-        // Demander le code beta
-        setShowBetaModal(true);
+        // Rediriger vers l'app qui gère la vérification beta
+        window.location.href = 'https://app.mytekx.io';
       }
     }
   };
   
   // Fonction utilitaire pour compléter la connexion (utilisée pour les utilisateurs existants)
   const completeSignIn = (user) => {
+    console.log("Completing sign in for user:", user);
+    
     setUser(user);
     setIsLoggedIn(true);
     setShowLoginModal(false);
     
-    if (rememberMe) {
-      localStorage.setItem('userEmail', user.email);
-      localStorage.setItem('isLoggedIn', 'true');
-    }
-    
-    // Vérifier si l'utilisateur a déjà accès à la beta
-    const storedBetaAccess = localStorage.getItem('hasBetaAccess');
-    if (storedBetaAccess === 'true') {
-      setHasBetaAccess(true);
-      // Démarrer l'application directement
-      onGetStarted();
-    } else {
-      // Demander le code beta
-      setShowBetaModal(true);
-    }
+    // Rediriger directement vers l'app principale
+    setTimeout(() => {
+      window.location.href = 'https://app.mytekx.io';
+    }, 500);
   };
 
   // Si showProfilePage est vrai, nous ne devrions pas afficher la landing page
@@ -2592,8 +2531,8 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
         </div>
       )}
 
-      {/* Beta Modal */}
-      {showBetaModal && (
+      {/* Beta Modal - Désactivé car l'app principale gère maintenant la vérification beta */}
+      {false && (
         <div className="beta-modal">
           <div className="beta-modal-content">
             <span className="close-button" onClick={() => setShowBetaModal(false)}>
