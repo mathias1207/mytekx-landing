@@ -31,6 +31,23 @@ fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500
 fontLink.rel = 'stylesheet';
 document.head.appendChild(fontLink);
 
+// Ajout des favicons
+const faviconLinks = [
+  { rel: 'icon', type: 'image/png', href: '/favicon-96x96.png', sizes: '96x96' },
+  { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+  { rel: 'shortcut icon', href: '/favicon.ico' },
+  { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+  { rel: 'manifest', href: '/site.webmanifest' }
+];
+
+faviconLinks.forEach(linkProps => {
+  const link = document.createElement('link');
+  Object.entries(linkProps).forEach(([key, value]) => {
+    link.setAttribute(key, value);
+  });
+  document.head.appendChild(link);
+});
+
 // Composant pour gérer les redirections conditionnelles
 const ConditionalRedirect = () => {
   const { currentUser, loading } = useAuth();

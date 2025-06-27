@@ -43,6 +43,7 @@ import StudentSolution from './StudentSolution';
 import TeacherSolution from './TeacherSolution';
 import ResearcherSolution from './ResearcherSolution';
 import InstitutionSolution from './InstitutionSolution';
+import RegistrationForm from './RegistrationForm';
 import { useAuth } from '../contexts/AuthContext';
 import { useBetaAccess } from '../hooks/useBetaAccess';
 
