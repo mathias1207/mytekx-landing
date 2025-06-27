@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 // URL du backend, à ajuster selon votre configuration
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = import.meta.env.VITE_API_BASE_URL;
 
 /**
  * Hook pour gérer le suivi de progression d'un traitement en arrière-plan

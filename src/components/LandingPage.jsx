@@ -38,11 +38,13 @@ import {
   orderBy,
   getDocs
 } from 'firebase/firestore';
-import { auth } from './firebase/firebaseConfig';
+import { auth } from '../firebase/init';
 import StudentSolution from './StudentSolution';
 import TeacherSolution from './TeacherSolution';
 import ResearcherSolution from './ResearcherSolution';
 import InstitutionSolution from './InstitutionSolution';
+import { useAuth } from '../contexts/AuthContext';
+import { useBetaAccess } from '../hooks/useBetaAccess';
 
 // Initialize Firestore
 const db = getFirestore();
@@ -154,6 +156,8 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
   const [showResearcherSolution, setShowResearcherSolution] = useState(false);
   const [showInstitutionSolution, setShowInstitutionSolution] = useState(false);
   const navigate = useNavigate();
+  const { currentUser, loading } = useAuth();
+  const { accessApp } = useBetaAccess();
   
   // Animation au scroll simplifiée - tout est visible par défaut
   useEffect(() => {
@@ -173,6 +177,42 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
       clearInterval(interval);
     };
   }, []);
+
+  // Gérer la fermeture du menu déroulant quand on clique ailleurs sur la page
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showSolutionsMenu && !event.target.closest('.nav-dropdown')) {
+        setShowSolutionsMenu(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [showSolutionsMenu]);
+
+  // Gestion automatique de la redirection après connexion via les modals
+  useEffect(() => {
+    console.log('📊 LandingPage useEffect - Auth state:', {
+      isLoggedIn,
+      showLoginModal,
+      currentUser: currentUser ? { uid: currentUser.uid, email: currentUser.email } : null,
+      showRegistrationForm,
+      loading,
+      timestamp: new Date().toISOString()
+    });
+
+    // Si l'utilisateur vient de se connecter via les modals (isLoggedIn mais modal fermé)
+    // et que le contexte d'authentification est maintenant à jour, rediriger vers l'app
+    if (isLoggedIn && !showLoginModal && currentUser && !showRegistrationForm && !loading) {
+      console.log("🎯 User authenticated via landing page, triggering app access");
+      // Petite pause pour s'assurer que tout est bien initialisé
+      setTimeout(() => {
+        accessApp();
+      }, 1000);
+    }
+  }, [isLoggedIn, showLoginModal, currentUser, showRegistrationForm, loading, accessApp]);
 
   // Vérifier si l'utilisateur est déjà connecté
   useEffect(() => {
@@ -215,8 +255,7 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
   const handleLoginButtonClick = () => {
     // Si l'utilisateur est déjà connecté, rediriger vers l'app
     if (isLoggedIn) {
-      // Rediriger vers l'app principale qui gère sa propre vérification beta
-      window.location.href = 'https://app.mytekx.io';
+      accessApp();
       return;
     }
     
@@ -253,20 +292,6 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
       document.body.style.overflow = 'auto';
     };
   }, [showLoginModal, selectedFeature]);
-  
-  // Gérer la fermeture du menu déroulant quand on clique ailleurs sur la page
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (showSolutionsMenu && !event.target.closest('.nav-dropdown')) {
-        setShowSolutionsMenu(false);
-      }
-    };
-    
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [showSolutionsMenu]);
   
   // Contenu localisé
   const content = {
@@ -721,7 +746,6 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
       await signOut(auth);
       setIsLoggedIn(false);
       setUser(null);
-      setHasBetaAccess(false);
       
       // Récupérer l'ID utilisateur avant de nettoyer le localStorage
       const userId = auth.currentUser?.uid;
@@ -1227,15 +1251,6 @@ export default function LandingPage({ onGetStarted, onShowPreview }) {
         aria-label={isDarkMode ? 'Activer le mode clair' : 'Activer le mode sombre'}
       >
         {isDarkMode ? <SunMediumIcon size={20} /> : <MoonIcon size={20} />}
-      </button>
-
-      {/* Bouton de test temporaire pour le logo */}
-      <button 
-        className="logo-test-button"
-        onClick={() => navigate('/logo-test')}
-        title="Tester l'animation du logo MyTekX"
-      >
-        🎨 Logo Test
       </button>
 
       {/* Header avec navigation */}

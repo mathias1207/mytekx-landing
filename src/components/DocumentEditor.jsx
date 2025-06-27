@@ -70,7 +70,7 @@ const DocumentEditor = ({ onClose, latexContent, documentTitle }) => {
       if (currentFileId) {
         try {
           console.log('🌐 Appel de l\'API pour récupérer le contenu LaTeX...');
-          const response = await fetch(`http://localhost:8000/get-latex-content/${currentFileId}`);
+          const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/get-latex-content/${currentFileId}`);
           if (response.ok) {
             const data = await response.json();
             console.log('✅ Contenu LaTeX récupéré via API:', data.latex_content?.length || 0, 'caractères');
@@ -124,7 +124,7 @@ const DocumentEditor = ({ onClose, latexContent, documentTitle }) => {
         }, 5000); // Réduire le timeout à 5 secondes
         
         // Appeler le backend pour convertir LaTeX vers HTML
-        const response = await fetch('http://localhost:8000/convert-latex-to-html', {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/convert-latex-to-html`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

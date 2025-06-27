@@ -6,4 +6,4 @@ import './App.css';
 import { useLanguage } from './contexts/LanguageContext';
 // Importer les icônes
 import { FaGlobe, FaArrowLeft } from 'react-icons/fa';
-import { auth } from './firebase/firebaseConfig'; 
+import { auth } from '../firebase/init'; 
