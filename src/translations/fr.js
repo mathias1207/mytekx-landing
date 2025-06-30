@@ -25,5 +25,26 @@ export default {
   selectedFile: "Fichier sélectionné :",
   noFileSelected: "Aucun fichier sélectionné",
   
+  // Landing page
+  recognized: "RECONNU COMME LE MEILLEUR CONVERTISSEUR SLIDES-LATEX",
+  heroTitle1: "Transformez automatiquement,",
+  heroTitle2: "Structurez proprement,", 
+  heroTitle3: "Téléchargez instantanément",
+  servicesBtn: "SERVICES",
+  productBtn: "PRODUIT",
+  
+  // Features section
+  featuresTagline: "EFFICACITÉ, ÉVOLUTIVITÉ ET AGILITÉ",
+  featuresTitle: "Capacités inégalées de conversion IA",
+  feature1Name: "CONVERSION",
+  feature2Name: "TRAITEMENT",
+  feature3Name: "ANALYSE",
+  feature4Name: "PRÉCISION",
+  mainFeatureTitle: "Système de conversion intelligent",
+  mainFeatureDescription: "Insights alimentés par l'IA qui prédisent les besoins des utilisateurs et offrent des expériences personnalisées de conversion PDF vers LaTeX.",
+  
+  // Scroll indicator
+  scrollText: "Défiler",
+  
   // Autres traductions existantes...
 }; 

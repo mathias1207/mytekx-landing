@@ -38,7 +38,8 @@ src/
 │   ├── Login.jsx              # Page de connexion
 │   ├── Register.jsx           # Page d'inscription
 │   ├── Dashboard.jsx          # Tableau de bord utilisateur
-│   └── Profile.jsx            # Page de profil utilisateur
+│   ├── Profile.jsx            # Page de profil utilisateur
+│   └── LatexGeneratorIA.jsx   # Page SEO générateur LaTeX
 └── App.jsx                    # Routage principal avec authentification
 ```
 
@@ -105,6 +106,7 @@ L'application sera accessible sur `http://localhost:5173`
 - `/` - Page d'accueil
 - `/login` - Connexion
 - `/register` - Inscription
+- `/generateur-document-latex` - Page SEO générateur LaTeX
 
 ### Routes protégées
 - `/dashboard` - Tableau de bord (nécessite une connexion)
@@ -193,12 +195,131 @@ L'application est compatible avec toutes les plateformes supportant Vite :
 - **OAuth Google** : Configurez correctement les URI de redirection dans Google Console
 - **Build production** : Testez toujours votre build de production avant le déploiement
 
+## 🔍 SEO et Marketing
+
+### Page Générateur LaTeX IA (`/generateur-document-latex`)
+
+Cette page SEO dédiée optimise la visibilité sur les moteurs de recherche pour le générateur LaTeX par IA.
+
+#### Fonctionnalités SEO implémentées :
+- ✅ **Meta-tags optimisés** : title, description, keywords
+- ✅ **Open Graph** et Twitter Cards pour le partage social
+- ✅ **JSON-LD Schema** : Organization + SoftwareApplication
+- ✅ **URL canonique** pour éviter le contenu dupliqué
+- ✅ **Images optimisées** avec alt-text contenant "IA LaTeX"
+- ✅ **Contenu riche** (≈900 mots) avec mots-clés ciblés
+- ✅ **Structure Hn** sémantique (h1, h2, h3)
+- ✅ **CTA** vers l'application principale
+- ✅ **Sitemap.xml** et robots.txt mis à jour
+
+#### Mots-clés ciblés :
+- "générateur LaTeX"
+- "LaTeX IA"
+- "intelligence artificielle LaTeX"
+- "conversion PDF LaTeX"
+- "document académique"
+
+#### Fichiers SEO créés/modifiés :
+```
+public/
+├── robots.txt              # Directives pour les crawlers
+├── sitemap.xml            # Plan du site
+├── site.webmanifest       # Manifest PWA optimisé
+└── assets/
+    ├── latex-ia-preview.svg    # Image d'illustration
+    └── ia-latex-process.svg    # Diagramme du processus
+```
+
+#### Comment ajouter d'autres pages SEO :
+
+1. **Créer une nouvelle page** dans `src/pages/` :
+```jsx
+// src/pages/NouvellePage.jsx
+import React, { useEffect } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
+
+const NouvellePage = () => {
+  const { language } = useLanguage();
+
+  useEffect(() => {
+    // Mise à jour du title
+    document.title = 'Titre SEO | MyTekX';
+
+    // Meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Description SEO optimisée');
+    }
+
+    // URL canonique
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://www.mytekx.io/nouvelle-page';
+
+    // JSON-LD si nécessaire
+    const jsonLdScript = document.createElement('script');
+    jsonLdScript.type = 'application/ld+json';
+    jsonLdScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Titre de la page",
+      "url": "https://www.mytekx.io/nouvelle-page"
+    });
+    document.head.appendChild(jsonLdScript);
+
+    return () => {
+      document.head.removeChild(jsonLdScript);
+    };
+  }, [language]);
+
+  return (
+    <div>
+      <h1>Titre principal avec mots-clés</h1>
+      {/* Contenu riche et optimisé */}
+    </div>
+  );
+};
+
+export default NouvellePage;
+```
+
+2. **Ajouter la route** dans `src/App.jsx` :
+```jsx
+import NouvellePage from './pages/NouvellePage';
+
+// Dans le composant Routes :
+<Route path="/nouvelle-page" element={<NouvellePage />} />
+```
+
+3. **Mettre à jour le sitemap** dans `public/sitemap.xml` :
+```xml
+<url>
+  <loc>https://www.mytekx.io/nouvelle-page</loc>
+  <lastmod>2024-01-15</lastmod>
+  <priority>0.8</priority>
+  <changefreq>monthly</changefreq>
+</url>
+```
+
+#### Bonnes pratiques SEO :
+- **Contenu unique** : Éviter le contenu dupliqué
+- **Mots-clés naturels** : Intégrer les mots-clés de manière naturelle
+- **Images optimisées** : Alt-text descriptif avec mots-clés
+- **Vitesse de chargement** : Optimiser les images et le code
+- **Mobile-first** : Design responsive obligatoire
+- **URLs propres** : Utiliser des URLs descriptives
+- **Liens internes** : Créer des liens vers d'autres pages pertinentes
+
 ## 🤝 Contribution
 
 1. Fork le projet
 2. Créez une branche feature (`git checkout -b feature/AmazingFeature`)
 3. Commit vos changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push sur la branche (`git push origin feature/AmazingFeature`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
 5. Ouvrez une Pull Request
 
 ## 📄 Licence

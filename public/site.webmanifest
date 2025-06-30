@@ -1,6 +1,8 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "MyTekX - Générateur LaTeX par IA",
+  "short_name": "MyTekX",
+  "description": "Générez automatiquement vos documents LaTeX grâce à l'intelligence artificielle",
+  "start_url": "/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -13,9 +15,21 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
     }
   ],
-  "theme_color": "#ffffff",
+  "theme_color": "#667eea",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "categories": ["productivity", "education", "utilities"],
+  "lang": "fr"
 }

@@ -1,0 +1,133 @@
+/* Legal Pages Styles */
+.legal-page {
+  min-height: 100vh;
+  background: #1a1f2e;
+  color: #e2e8f0;
+  font-family: 'Space Mono', monospace;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+/* Animation de fondu */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.legal-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+}
+
+/* Header */
+.legal-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.legal-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #e2e8f0;
+}
+
+.legal-updated {
+  font-size: 1rem;
+  color: #a0aec0;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Content */
+.legal-content {
+  line-height: 1.8;
+}
+
+.legal-section {
+  margin-bottom: 3rem;
+}
+
+.legal-section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #33d4ff;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(51, 212, 255, 0.2);
+}
+
+.legal-section-content {
+  color: #cbd5e0;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.legal-section-content strong {
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+.legal-section-content ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.legal-section-content li {
+  margin-bottom: 0.5rem;
+}
+
+/* Lists styling */
+.legal-section-content p {
+  margin-bottom: 1rem;
+}
+
+.legal-section-content br + br {
+  display: block;
+  margin: 1rem 0;
+  content: "";
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .legal-container {
+    padding: 4rem 1rem 2rem;
+  }
+
+  .legal-title {
+    font-size: 2.5rem;
+  }
+
+  .legal-section-title {
+    font-size: 1.3rem;
+  }
+
+  .legal-section-content {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-title {
+    font-size: 2rem;
+  }
+
+  .legal-section-title {
+    font-size: 1.2rem;
+  }
+
+  .legal-section {
+    margin-bottom: 2rem;
+  }
+} 

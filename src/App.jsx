@@ -1,10 +1,16 @@
 // src/App.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import LogoTestPage from './components/LogoTestPage';
+import FAQ from './components/FAQ';
+import CookiePolicy from './components/CookiePolicy';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfUse from './components/TermsOfUse';
+import About from './components/About';
+import Overlay from './components/Overlay';
 import './App.css';
-import { useLanguage } from './contexts/LanguageContext';
+// import { useLanguage } from './contexts/LanguageContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 // Importer les icônes
 import { FaGlobe } from 'react-icons/fa';
@@ -20,6 +26,10 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import ProtectedRoute from './components/ProtectedRoute';
+
+// Importer la nouvelle page SEO
+import LatexGeneratorIA from './pages/LatexGeneratorIA';
+import TestPage from './pages/TestPage';
 
 // Importer le système beta
 import BetaGate from './components/BetaGate';
@@ -84,9 +94,28 @@ const ConditionalRedirect = () => {
 };
 
 function AppContent() {
-  const { language, toggleLanguage } = useLanguage();
+  // const { language, toggleLanguage } = useLanguage();
+  const [language, setLanguage] = useState('en');
+  const toggleLanguage = () => setLanguage(prev => prev === 'fr' ? 'en' : 'fr');
+  
   const [currentPreview, setCurrentPreview] = useState(null);
+  const [currentSolution, setCurrentSolution] = useState(null);
+  const [showFAQ, setShowFAQ] = useState(false);
+  const [showCookiePolicy, setShowCookiePolicy] = useState(false);
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+  const [showTermsOfUse, setShowTermsOfUse] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
+
+  // Fonction pour fermer toutes les overlays
+  const closeAllOverlays = () => {
+    setShowFAQ(false);
+    setShowCookiePolicy(false);
+    setShowPrivacyPolicy(false);
+    setShowTermsOfUse(false);
+    setShowAbout(false);
+  };
   const { accessApp, showBetaGate, onBetaSuccess, closeBetaGate } = useBetaAccess();
+  const { currentUser, logout } = useAuth();
 
   const handleGetStarted = () => {
     // Utiliser le nouveau système beta au lieu de rediriger directement
@@ -96,6 +125,45 @@ function AppContent() {
   const handleShowPreview = (previewType) => {
     setCurrentPreview(previewType);
   };
+
+  const handleShowSolution = (solutionType) => {
+    setCurrentSolution(solutionType);
+  };
+
+  const handleShowFAQ = () => {
+    setShowFAQ(true);
+  };
+
+  const handleShowCookiePolicy = () => {
+    setShowCookiePolicy(true);
+  };
+
+  const handleShowPrivacyPolicy = () => {
+    setShowPrivacyPolicy(true);
+  };
+
+  const handleShowTermsOfUse = () => {
+    setShowTermsOfUse(true);
+  };
+
+  const handleShowAbout = () => {
+    setShowAbout(true);
+  };
+
+  const handleBackToHome = () => {
+    setCurrentSolution(null);
+    setCurrentPreview(null);
+    setShowFAQ(false);
+    setShowCookiePolicy(false);
+    setShowPrivacyPolicy(false);
+    setShowTermsOfUse(false);
+    setShowAbout(false);
+  };
+
+
+
+  // Si une solution est sélectionnée, l'afficher
+
 
   // Si une prévisualisation est sélectionnée, l'afficher
   if (currentPreview) {
@@ -120,22 +188,29 @@ function AppContent() {
           {/* Page d'accueil */}
           <Route path="/" element={
             <>
-              <div className="language-toggle-landing">
-                <button 
-                  onClick={toggleLanguage}
-                  className="language-button"
-                  style={{ zIndex: 1000 }}
-                >
-                  <FaGlobe /> {language === 'fr' ? 'EN' : 'FR'}
-                </button>
-              </div>
               <LandingPage 
                 onGetStarted={handleGetStarted} 
                 onShowPreview={handleShowPreview}
+                onShowSolution={handleShowSolution}
+                onShowFAQ={handleShowFAQ}
+                onShowCookiePolicy={handleShowCookiePolicy}
+                onShowPrivacyPolicy={handleShowPrivacyPolicy}
+                onShowTermsOfUse={handleShowTermsOfUse}
+                onShowAbout={handleShowAbout}
+                language={language}
+                user={currentUser}
+                onLogout={logout}
+                onLanguageChange={setLanguage}
               />
               <CookieConsent />
             </>
           } />
+
+          {/* Page SEO Générateur LaTeX */}
+          <Route path="/generateur-document-latex" element={<LatexGeneratorIA />} />
+
+          {/* Page de test Tailwind */}
+          <Route path="/test-tailwind" element={<TestPage />} />
 
           {/* Pages d'authentification */}
           <Route path="/login" element={<Login />} />
@@ -174,6 +249,33 @@ function AppContent() {
         onClose={closeBetaGate} 
         onSuccess={onBetaSuccess} 
       />
+
+      {/* Overlays pour les pages légales et FAQ */}
+      {showFAQ && (
+        <Overlay onClose={closeAllOverlays}>
+          <FAQ language={language} />
+        </Overlay>
+      )}
+      {showCookiePolicy && (
+        <Overlay onClose={closeAllOverlays}>
+          <CookiePolicy language={language} />
+        </Overlay>
+      )}
+      {showPrivacyPolicy && (
+        <Overlay onClose={closeAllOverlays}>
+          <PrivacyPolicy language={language} />
+        </Overlay>
+      )}
+      {showTermsOfUse && (
+        <Overlay onClose={closeAllOverlays}>
+          <TermsOfUse language={language} />
+        </Overlay>
+      )}
+      {showAbout && (
+        <Overlay onClose={closeAllOverlays}>
+          <About language={language} />
+        </Overlay>
+      )}
     </>
   );
 }

@@ -1,0 +1,61 @@
+<svg width="600" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="processGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#f8fafc"/>
+  
+  <!-- Step 1: Input Document -->
+  <rect x="20" y="50" width="120" height="80" rx="10" fill="white" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="80" y="75" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2d3748" text-anchor="middle">Document</text>
+  <text x="80" y="90" font-family="Arial, sans-serif" font-size="12" fill="#4a5568" text-anchor="middle">Source</text>
+  <rect x="40" y="100" width="80" height="15" rx="2" fill="#fed7e2"/>
+  <text x="80" y="110" font-family="Arial, sans-serif" font-size="9" fill="#97266d" text-anchor="middle">PDF, DOCX, PPT</text>
+  
+  <!-- Arrow 1 -->
+  <path d="M 160 90 L 190 90 M 185 85 L 190 90 L 185 95" stroke="url(#processGradient)" stroke-width="3" fill="none"/>
+  
+  <!-- Step 2: AI Analysis -->
+  <circle cx="220" cy="90" r="40" fill="url(#aiGradient)"/>
+  <text x="220" y="85" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">ΘΞ</text>
+  <text x="220" y="100" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">IA</text>
+  
+  <!-- Analysis details -->
+  <rect x="170" y="150" width="100" height="60" rx="5" fill="white" stroke="#a78bfa" stroke-width="1"/>
+  <text x="220" y="165" font-family="Arial, sans-serif" font-size="9" fill="#553c9a" text-anchor="middle" font-weight="bold">Analyse</text>
+  <text x="175" y="180" font-family="Arial, sans-serif" font-size="8" fill="#6b46c1">• Structure</text>
+  <text x="175" y="192" font-family="Arial, sans-serif" font-size="8" fill="#6b46c1">• Équations</text>
+  <text x="175" y="204" font-family="Arial, sans-serif" font-size="8" fill="#6b46c1">• Formatage</text>
+  
+  <!-- Arrow 2 -->
+  <path d="M 270 90 L 300 90 M 295 85 L 300 90 L 295 95" stroke="url(#processGradient)" stroke-width="3" fill="none"/>
+  
+  <!-- Step 3: LaTeX Generation -->
+  <rect x="320" y="50" width="120" height="80" rx="10" fill="white" stroke="#10b981" stroke-width="2"/>
+  <text x="380" y="75" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#047857" text-anchor="middle">Code LaTeX</text>
+  <text x="380" y="90" font-family="Arial, sans-serif" font-size="12" fill="#059669" text-anchor="middle">Généré</text>
+  <rect x="340" y="100" width="80" height="15" rx="2" fill="#d1fae5"/>
+  <text x="380" y="110" font-family="Courier, monospace" font-size="8" fill="#047857" text-anchor="middle">\documentclass...</text>
+  
+  <!-- Arrow 3 -->
+  <path d="M 460 90 L 490 90 M 485 85 L 490 90 L 485 95" stroke="url(#processGradient)" stroke-width="3" fill="none"/>
+  
+  <!-- Step 4: Output -->
+  <rect x="510" y="50" width="70" height="80" rx="10" fill="white" stroke="#f59e0b" stroke-width="2"/>
+  <text x="545" y="75" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#92400e" text-anchor="middle">PDF</text>
+  <text x="545" y="88" font-family="Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle">+</text>
+  <text x="545" y="101" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#92400e" text-anchor="middle">TEX</text>
+  <rect x="525" y="110" width="40" height="10" rx="1" fill="#fef3c7"/>
+  
+  <!-- Process description -->
+  <text x="300" y="250" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1f2937" text-anchor="middle">Processus de conversion intelligent</text>
+  <text x="300" y="270" font-family="Arial, sans-serif" font-size="11" fill="#4b5563" text-anchor="middle">L'IA MyTekX analyse automatiquement votre document et génère du code LaTeX optimisé</text>
+</svg> 

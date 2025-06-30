@@ -10,8 +10,206 @@
   transition: all 0.3s ease;
 }
 
+/* Dashboard Header with Back Button */
 .dashboard-header {
+  margin-bottom: 2rem;
+}
+
+.dashboard-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.back-to-landing-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #33d4ff, #1a9eff);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(51, 212, 255, 0.2);
+}
+
+.back-to-landing-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(51, 212, 255, 0.3);
+}
+
+.beta-warning {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 193, 7, 0.1);
+  color: #f57c00;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+/* Main App Access Section */
+.main-app-access {
+  background: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 2px solid rgba(51, 212, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.main-app-access::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #33d4ff, #1a9eff, #33d4ff);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.app-access-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.app-access-icon {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #33d4ff, #1a9eff);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 8px 24px rgba(51, 212, 255, 0.3);
+}
+
+.app-access-text {
+  flex: 1;
+  color: white;
+}
+
+.app-access-text h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.app-access-text p {
+  margin: 0;
+  color: #a0aec0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.app-access-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #33d4ff, #1a9eff);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(51, 212, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.app-access-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(51, 212, 255, 0.4);
+}
+
+/* Beta Notice */
+.beta-notice {
+  background: rgba(255, 193, 7, 0.05);
+  border: 1px solid rgba(255, 193, 7, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.beta-notice .flask-icon {
+  color: #f57c00;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.beta-notice-content h4 {
+  margin: 0 0 0.5rem 0;
+  color: #f57c00;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.beta-notice-content p {
+  margin: 0;
+  color: #666;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+/* Responsive Design for Main App Access */
+@media (max-width: 768px) {
+  .dashboard-header-top {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .app-access-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .app-access-btn {
+    align-self: center;
+  }
+}
+
+/* Fictional Documents Styling */
+.fictional-documents {
+  margin-top: 1rem;
+}
+
+.activity-item.fictional {
+  opacity: 0.7;
+  border-left: 3px solid rgba(255, 193, 7, 0.5);
+  background: rgba(255, 193, 7, 0.02);
+}
+
+.activity-item.fictional:hover {
+  opacity: 1;
+  background: rgba(255, 193, 7, 0.05);
 }
 
 .dashboard-header h3 {
