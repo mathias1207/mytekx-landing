@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 import AnimatedBackground from './AnimatedBackground';
 import { FileTextIcon } from './ui/file-text';
@@ -19,6 +20,7 @@ import { PrecisionCameraIcon } from './ui/precision-camera';
 import { SettingsGearIcon } from './ui/settings-gear';
 
 export default function LandingPage({ onGetStarted, onShowPreview, onShowSolution, onShowFAQ, onShowCookiePolicy, onShowPrivacyPolicy, onShowTermsOfUse, onShowAbout, language = 'fr', user = null, onLogout, onLanguageChange }) {
+  const navigate = useNavigate();
   const featuresRef = useRef(null);
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [showSolutionsDropdown, setShowSolutionsDropdown] = useState(false);
@@ -226,9 +228,9 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
       
       // Hero section
       recognized: "RECOGNIZED AS THE BEST SLIDES-TO-LATEX CONVERTER",
-      heroTitle1: "Streamline Operations,",
-      heroTitle2: "Skyrocket Revenue,",
-      heroTitle3: "and Delight Customers",
+      heroTitle1: "Transform automatically",
+      heroTitle2: "Structure them properly",
+      heroTitle3: "Download instantly",
       startNowBtn: "Get Started Now",
       scrollText: "Scroll",
       
@@ -456,7 +458,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
             <>
               <button 
                 className="btn-user"
-                onClick={() => window.location.href = '/profile'}
+                onClick={() => navigate('/profile')}
               >
                 {user.displayName || user.email || 'Utilisateur'}
               </button>
@@ -472,7 +474,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
             <>
               <button 
                 className="btn-outline"
-                onClick={() => window.location.href = '/login'}
+                onClick={() => navigate('/login')}
               >
                 {t.login}
               </button>
@@ -875,7 +877,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
                 </div>
                 <div className="example-image-container">
                   <img 
-                    src="/src/assets/images/brainslide.png" 
+                    src="/assets/brainslide.png" 
                     alt="Slide PDF original"
                     className="example-image"
                   />
@@ -903,7 +905,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
                 </div>
                 <div className="example-image-container">
                   <img 
-                    src="/src/assets/images/brainlatex.png" 
+                    src="/assets/brainlatex.png" 
                     alt="Document LaTeX généré"
                     className="example-image"
                   />

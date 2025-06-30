@@ -34,8 +34,7 @@ const Dashboard = () => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => navigate('/')}
-                className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition duration-200"
-              >
+                className="flex items-center bg-white text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition duration-200"              >
                 <FaHome />
                 <span>Accueil</span>
               </button>
@@ -55,7 +54,7 @@ const Dashboard = () => {
               </div>
               <button
                 onClick={handleLogout}
-                className="flex items-center space-x-1 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition duration-200"
+                className="flex items-center bg-white space-x-1 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition duration-200"
               >
                 <FaSignOutAlt />
                 <span>Déconnexion</span>
