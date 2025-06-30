@@ -54,7 +54,7 @@ const Dashboard = () => {
               </div>
               <button
                 onClick={handleLogout}
-                className="flex items-center bg-white space-x-1 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition duration-200"
+                className="flex items-center bg-blue-500 text-white space-x-1 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition duration-200"
               >
                 <FaSignOutAlt />
                 <span>Déconnexion</span>
