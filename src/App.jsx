@@ -106,6 +106,25 @@ function AppContent() {
   const [showTermsOfUse, setShowTermsOfUse] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
 
+  // Gérer la déconnexion automatique si le paramètre logout=true est présent
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('logout') === 'true') {
+      console.log('Paramètre logout détecté, déconnexion forcée...');
+      logout().then(() => {
+        // Nettoyer l'URL en supprimant le paramètre logout
+        const newUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+        console.log('Déconnexion forcée terminée');
+      }).catch(error => {
+        console.error('Erreur lors de la déconnexion forcée:', error);
+        // Même en cas d'erreur, nettoyer l'URL
+        const newUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+      });
+    }
+  }, [logout]);
+
   // Fonction pour fermer toutes les overlays
   const closeAllOverlays = () => {
     setShowFAQ(false);
