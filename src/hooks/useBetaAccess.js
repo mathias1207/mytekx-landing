@@ -42,19 +42,29 @@ export const useBetaAccess = () => {
         fromLanding: true
       };
       
-      // Sauvegarder dans localStorage pour que l'app puisse le lire
-      localStorage.setItem('authSyncData', JSON.stringify(syncData));
-      localStorage.setItem('tempAuthStatus', 'authenticated');
+      console.log('💾 Auth data prepared for URL sync:', syncData);
       
-      console.log('💾 Auth data saved for app sync:', syncData);
-      console.log('📝 localStorage authSyncData:', localStorage.getItem('authSyncData'));
-      console.log('📝 localStorage tempAuthStatus:', localStorage.getItem('tempAuthStatus'));
+      // Stocker aussi dans sessionStorage pour détection côté app
+      const recentLoginData = {
+        email: currentUser.email,
+        timestamp: Date.now()
+      };
+      sessionStorage.setItem('recentLandingLogin', JSON.stringify(recentLoginData));
+      console.log('📝 Recent login data stored in sessionStorage');
       
-      // Petit délai pour s'assurer que les données sont sauvegardées
-      setTimeout(() => {
-        console.log('🚀 Redirecting to app...');
-        window.location.href = 'https://app.mytekx.io';
-      }, 100);
+      // Encoder les données en base64 pour les passer dans l'URL
+      const encodedData = btoa(JSON.stringify(syncData));
+      
+      // Créer l'URL avec les paramètres d'authentification
+      const appUrl = new URL('https://app.mytekx.io');
+      appUrl.searchParams.set('auth', encodedData);
+      appUrl.searchParams.set('status', 'authenticated');
+      
+      console.log('🔗 Redirect URL created:', appUrl.toString());
+      console.log('🚀 Redirecting to app with auth parameters...');
+      
+      // Rediriger vers l'app avec les données d'authentification dans l'URL
+      window.location.href = appUrl.toString();
       
     } catch (error) {
       console.error('❌ Error preparing auth sync:', error);

@@ -18,7 +18,7 @@ const firebaseConfig = {
 // Configuration de fallback si les variables d'environnement ne sont pas définies
 const fallbackConfig = {
   apiKey: "AIzaSyBTKbxp5OBRQzZp82MLtMb98vlzIoAgDdA",
-  authDomain: "mytekx-5b59f.firebaseapp.com",
+  authDomain: "mytekx.io",
   projectId: "mytekx-5b59f",
   storageBucket: "mytekx-5b59f.firebasestorage.app",
   messagingSenderId: "679348202996",
