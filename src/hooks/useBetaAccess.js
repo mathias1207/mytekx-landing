@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { getIdToken } from 'firebase/auth';
 
 export const useBetaAccess = () => {
   const [showBetaGate, setShowBetaGate] = useState(false);
@@ -23,18 +22,31 @@ export const useBetaAccess = () => {
     }
 
     try {
-      console.log('🔑 Getting Firebase ID token...');
-      const idToken = await getIdToken(currentUser);
+      console.log('🔑 Preparing user data for app sync...');
       
-      // Créer l'URL avec le token
-      const appUrl = new URL('https://app.mytekx.io');
-      appUrl.searchParams.set('authToken', idToken);
-      appUrl.searchParams.set('authSource', 'landing');
+      // Préparer les données utilisateur pour la synchronisation
+      const syncData = {
+        uid: currentUser.uid,
+        email: currentUser.email,
+        displayName: currentUser.displayName,
+        photoURL: currentUser.photoURL,
+        emailVerified: currentUser.emailVerified,
+        providerId: currentUser.providerData[0]?.providerId || 'email',
+        syncTimestamp: Date.now(),
+        fromLanding: true
+      };
       
-      console.log('🚀 Redirecting to app with auth token');
-      window.location.href = appUrl.toString();
+      // Sauvegarder dans localStorage pour que l'app puisse le lire
+      localStorage.setItem('authSyncData', JSON.stringify(syncData));
+      localStorage.setItem('tempAuthStatus', 'authenticated');
+      
+      console.log('💾 Auth data saved for app sync');
+      console.log('🚀 Redirecting to app...');
+      
+      // Rediriger vers l'app
+      window.location.href = 'https://app.mytekx.io';
     } catch (error) {
-      console.error('❌ Error getting auth token:', error);
+      console.error('❌ Error preparing auth sync:', error);
       // Fallback vers redirection simple
       window.location.href = 'https://app.mytekx.io';
     }
