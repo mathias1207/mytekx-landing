@@ -183,8 +183,6 @@ body {
   line-height: 1.4;
 }
 
-
-
 .hero-actions {
   display: flex;
   gap: 1rem;
@@ -2109,5 +2107,60 @@ body {
   .footer-language-toggle,
   .footer-credit {
     justify-self: center;
+  }
+}
+
+/* Footer Tooltip Styles */
+.footer-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(26, 31, 46, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(51, 212, 255, 0.3);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 0.8rem;
+  color: var(--text-color);
+  font-family: 'Space Mono', monospace;
+  white-space: nowrap;
+  z-index: 1000;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  animation: tooltipFadeIn 0.2s ease-out;
+  pointer-events: none;
+}
+
+.footer-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid rgba(51, 212, 255, 0.3);
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.footer-link-with-tooltip {
+  position: relative !important;
+}
+
+@media (max-width: 768px) {
+  .footer-tooltip {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.8rem;
   }
 }

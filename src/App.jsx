@@ -106,6 +106,18 @@ function AppContent() {
   const [showTermsOfUse, setShowTermsOfUse] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
 
+  // Fonction pour fermer toutes les overlays
+  const closeAllOverlays = () => {
+    setShowFAQ(false);
+    setShowCookiePolicy(false);
+    setShowPrivacyPolicy(false);
+    setShowTermsOfUse(false);
+    setShowAbout(false);
+  };
+  
+  const { accessApp, showBetaGate, onBetaSuccess, closeBetaGate } = useBetaAccess();
+  const { currentUser, logout } = useAuth();
+
   // Gérer la déconnexion automatique si le paramètre logout=true est présent
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -124,17 +136,6 @@ function AppContent() {
       });
     }
   }, [logout]);
-
-  // Fonction pour fermer toutes les overlays
-  const closeAllOverlays = () => {
-    setShowFAQ(false);
-    setShowCookiePolicy(false);
-    setShowPrivacyPolicy(false);
-    setShowTermsOfUse(false);
-    setShowAbout(false);
-  };
-  const { accessApp, showBetaGate, onBetaSuccess, closeBetaGate } = useBetaAccess();
-  const { currentUser, logout } = useAuth();
 
   const handleGetStarted = () => {
     // Utiliser le nouveau système beta au lieu de rediriger directement

@@ -104,10 +104,21 @@ export default function About({ onBack, language = 'en' }) {
                 <p className="founder-description">{data.founderDescription}</p>
               </div>
               <div className="founder-portrait">
-                {/* Placeholder pour le portrait - à remplacer par la vraie photo */}
-                <div className="portrait-placeholder">
-                  <div className="portrait-icon">MG</div>
-                  <p className="portrait-text">Portrait à venir</p>
+                <div className="portrait-container">
+                  <img 
+                    src="/assets/mathias-portrait.JPG" 
+                    alt="Mathias Goldmann - Fondateur de MyTekX"
+                    className="founder-photo"
+                    onError={(e) => {
+                      // Fallback vers le placeholder si l'image ne charge pas
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
+                  />
+                  <div className="portrait-placeholder" style={{display: 'none'}}>
+                    <div className="portrait-icon">MG</div>
+                    <p className="portrait-text">Portrait à venir</p>
+                  </div>
                 </div>
               </div>
             </div>

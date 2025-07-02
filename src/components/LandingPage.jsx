@@ -25,6 +25,8 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [showSolutionsDropdown, setShowSolutionsDropdown] = useState(false);
   const [showPlansDropdown, setShowPlansDropdown] = useState(false);
+  const [showBlogTooltip, setShowBlogTooltip] = useState(false);
+  const [showGuidesTooltip, setShowGuidesTooltip] = useState(false);
   const dropdownTimeoutRef = useRef(null);
   const plansDropdownTimeoutRef = useRef(null);
 
@@ -66,6 +68,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
       plans: "PLANS",
       solutions: "SOLUTIONS", 
       faq: "FAQ",
+      about: "À PROPOS",
       contact: "CONTACT",
       login: "LOGIN",
       signup: "SIGN UP",
@@ -90,7 +93,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
       proPlanDesc: "Sur devis - Solutions personnalisées",
       
       // Hero section
-      recognized: "RECONNU COMME LE MEILLEUR CONVERTISSEUR SLIDES-LATEX",
+      recognized: "RECONNU COMME LE MEILLEUR CONVERTISSEUR IA SLIDES-LATEX",
       heroTitle1: "Transformez automatiquement,",
       heroTitle2: "Structurez proprement,",
       heroTitle3: "Téléchargez instantanément",
@@ -197,12 +200,14 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
       footerTerms: "Conditions d'Utilisation",
       footerConclusion: "Révolutionnez Votre Workflow.",
       footerCredit: "Design & Dev by",
+      comingSoon: "Bientôt disponible",
     },
     en: {
       // Navigation
       plans: "PLANS",
       solutions: "SOLUTIONS",
-      faq: "FAQ", 
+      faq: "FAQ",
+      about: "ABOUT", 
       contact: "CONTACT",
       login: "LOGIN",
       signup: "SIGN UP",
@@ -227,7 +232,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
       proPlanDesc: "Custom Quote - Personalized solutions",
       
       // Hero section
-      recognized: "RECOGNIZED AS THE BEST SLIDES-TO-LATEX CONVERTER",
+      recognized: "RECOGNIZED AS THE BEST SLIDES-TO-LATEX AI CONVERTER",
       heroTitle1: "Transform automatically",
       heroTitle2: "Structure them properly",
       heroTitle3: "Download instantly",
@@ -334,6 +339,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
       footerTerms: "Terms of Use",
       footerConclusion: "Revolutionize Your Workflow.",
       footerCredit: "Design & Dev by",
+      comingSoon: "Coming soon",
     }
   };
 
@@ -443,6 +449,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
               )}
             </li>
             <li onClick={onShowFAQ} style={{ cursor: 'pointer' }}>{t.faq}</li>
+            <li onClick={onShowAbout} style={{ cursor: 'pointer' }}>{t.about}</li>
             <li 
               onClick={() => window.open('mailto:contact@mytekx.io?subject=Contact%20MyTekX', '_blank')} 
               style={{ cursor: 'pointer' }}
@@ -978,7 +985,19 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
               <h3 className="footer-title">{t.footerSupport}</h3>
               <ul className="footer-links">
                 <li className="footer-link" onClick={onShowFAQ}>{t.footerFaq}</li>
-                <li className="footer-link">{t.footerGuides}</li>
+                <li 
+                  className="footer-link footer-link-with-tooltip"
+                  onMouseEnter={() => setShowGuidesTooltip(true)}
+                  onMouseLeave={() => setShowGuidesTooltip(false)}
+                  style={{ position: 'relative', cursor: 'pointer' }}
+                >
+                  {t.footerGuides}
+                  {showGuidesTooltip && (
+                    <div className="footer-tooltip">
+                      {t.comingSoon}
+                    </div>
+                  )}
+                </li>
                 <li className="footer-link">
                   <a href="https://drive.google.com/drive/folders/1TomrIGAcNX446yJmndwGIx3LLHVgHFc6" target="_blank" rel="noopener noreferrer" className="footer-external-link">
                     {t.footerExamples}
@@ -1004,7 +1023,19 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
                 >
                   {t.footerContact}
                 </li>
-                <li className="footer-link">{t.footerBlog}</li>
+                <li 
+                  className="footer-link footer-link-with-tooltip"
+                  onMouseEnter={() => setShowBlogTooltip(true)}
+                  onMouseLeave={() => setShowBlogTooltip(false)}
+                  style={{ position: 'relative', cursor: 'pointer' }}
+                >
+                  {t.footerBlog}
+                  {showBlogTooltip && (
+                    <div className="footer-tooltip">
+                      {t.comingSoon}
+                    </div>
+                  )}
+                </li>
               </ul>
             </div>
             
