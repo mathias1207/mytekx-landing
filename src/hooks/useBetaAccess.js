@@ -23,6 +23,12 @@ export const useBetaAccess = () => {
 
     try {
       console.log('🔑 Preparing user data for app sync...');
+      console.log('👤 Current user data:', {
+        uid: currentUser.uid,
+        email: currentUser.email,
+        displayName: currentUser.displayName,
+        emailVerified: currentUser.emailVerified
+      });
       
       // Préparer les données utilisateur pour la synchronisation
       const syncData = {
@@ -40,11 +46,16 @@ export const useBetaAccess = () => {
       localStorage.setItem('authSyncData', JSON.stringify(syncData));
       localStorage.setItem('tempAuthStatus', 'authenticated');
       
-      console.log('💾 Auth data saved for app sync');
-      console.log('🚀 Redirecting to app...');
+      console.log('💾 Auth data saved for app sync:', syncData);
+      console.log('📝 localStorage authSyncData:', localStorage.getItem('authSyncData'));
+      console.log('📝 localStorage tempAuthStatus:', localStorage.getItem('tempAuthStatus'));
       
-      // Rediriger vers l'app
-      window.location.href = 'https://app.mytekx.io';
+      // Petit délai pour s'assurer que les données sont sauvegardées
+      setTimeout(() => {
+        console.log('🚀 Redirecting to app...');
+        window.location.href = 'https://app.mytekx.io';
+      }, 100);
+      
     } catch (error) {
       console.error('❌ Error preparing auth sync:', error);
       // Fallback vers redirection simple
