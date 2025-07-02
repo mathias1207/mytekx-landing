@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { getIdToken } from 'firebase/auth';
 
 export const useBetaAccess = () => {
   const [showBetaGate, setShowBetaGate] = useState(false);
@@ -12,6 +13,31 @@ export const useBetaAccess = () => {
     
     const storedAccess = localStorage.getItem(`betaAccess_${currentUser.uid}`);
     return storedAccess === 'true';
+  }, [currentUser]);
+
+  // Fonction pour rediriger vers l'app avec authentification
+  const redirectToAppWithAuth = useCallback(async () => {
+    if (!currentUser) {
+      console.error('❌ No user to authenticate');
+      return;
+    }
+
+    try {
+      console.log('🔑 Getting Firebase ID token...');
+      const idToken = await getIdToken(currentUser);
+      
+      // Créer l'URL avec le token
+      const appUrl = new URL('https://app.mytekx.io');
+      appUrl.searchParams.set('authToken', idToken);
+      appUrl.searchParams.set('authSource', 'landing');
+      
+      console.log('🚀 Redirecting to app with auth token');
+      window.location.href = appUrl.toString();
+    } catch (error) {
+      console.error('❌ Error getting auth token:', error);
+      // Fallback vers redirection simple
+      window.location.href = 'https://app.mytekx.io';
+    }
   }, [currentUser]);
 
   // Fonction pour accéder à l'app avec vérification beta
@@ -40,15 +66,15 @@ export const useBetaAccess = () => {
     console.log('✅ User authenticated, checking beta access...');
 
     if (checkBetaAccess()) {
-      // L'utilisateur a déjà un accès beta, rediriger directement
-      console.log('🚀 User has beta access, redirecting to app');
-      window.location.href = 'https://app.mytekx.io';
+      // L'utilisateur a déjà un accès beta, rediriger avec token d'authentification
+      console.log('🚀 User has beta access, redirecting to app with auth token');
+      redirectToAppWithAuth();
     } else {
       // Afficher le modal de demande de code beta
       console.log('🔐 No beta access, showing beta gate');
       setShowBetaGate(true);
     }
-  }, [currentUser, loading, checkBetaAccess]);
+  }, [currentUser, loading, checkBetaAccess, redirectToAppWithAuth]);
 
   // Effet pour gérer le cas où l'utilisateur se connecte pendant que l'accès est en cours de traitement
   useEffect(() => {
@@ -64,9 +90,9 @@ export const useBetaAccess = () => {
     setShowBetaGate(false);
     // Petite animation avant redirection
     setTimeout(() => {
-      window.location.href = 'https://app.mytekx.io';
+      redirectToAppWithAuth();
     }, 500);
-  }, []);
+  }, [redirectToAppWithAuth]);
 
   // Fonction pour fermer le modal beta
   const closeBetaGate = useCallback(() => {
