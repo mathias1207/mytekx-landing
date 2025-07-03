@@ -52,9 +52,15 @@ const BetaGate = ({ isOpen, onClose, onSuccess }) => {
     if (validBetaCodes.includes(betaCode.toUpperCase())) {
       setIsValid(true);
       
-      // Stocker l'accès beta pour cet utilisateur
+      // Stocker l'accès beta pour cet utilisateur (format landing)
       localStorage.setItem(`betaAccess_${currentUser?.uid}`, 'true');
       localStorage.setItem(`betaCode_${currentUser?.uid}`, betaCode.toUpperCase());
+      
+      // Stocker aussi dans le format attendu par l'app pour synchronisation
+      localStorage.setItem('hasBetaAccess', 'true');
+      localStorage.setItem('betaTimestamp', new Date().getTime().toString());
+      
+      console.log('✅ Beta access granted and synchronized for both landing and app');
       
       setTimeout(() => {
         setIsLoading(false);

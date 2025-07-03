@@ -14,7 +14,7 @@ export const useBetaAccess = () => {
     return storedAccess === 'true';
   }, [currentUser]);
 
-  // Fonction pour rediriger vers l'app avec authentification
+  // Fonction pour rediriger vers l'app (Firebase cookies gèrent la synchronisation)
   const redirectToAppWithAuth = useCallback(async () => {
     if (!currentUser) {
       console.error('❌ No user to authenticate');
@@ -22,56 +22,44 @@ export const useBetaAccess = () => {
     }
 
     try {
-      console.log('🔑 Preparing user data for app sync...');
-      console.log('👤 Current user data:', {
+      console.log('🔑 Redirecting to app - Firebase cookies will handle auth sync...');
+      console.log('👤 Current user:', {
         uid: currentUser.uid,
         email: currentUser.email,
         displayName: currentUser.displayName,
         emailVerified: currentUser.emailVerified
       });
       
-      // Préparer les données utilisateur pour la synchronisation
-      const syncData = {
-        uid: currentUser.uid,
-        email: currentUser.email,
-        displayName: currentUser.displayName,
-        photoURL: currentUser.photoURL,
-        emailVerified: currentUser.emailVerified,
-        providerId: currentUser.providerData[0]?.providerId || 'email',
-        syncTimestamp: Date.now(),
-        fromLanding: true
-      };
+      // Vérifier et synchroniser le statut beta
+      const hasBetaAccess = checkBetaAccess();
+      console.log('🔐 Beta access status:', hasBetaAccess);
       
-      console.log('💾 Auth data prepared for URL sync:', syncData);
-      
-      // Stocker aussi dans sessionStorage pour détection côté app
-      const recentLoginData = {
-        email: currentUser.email,
-        timestamp: Date.now()
-      };
-      sessionStorage.setItem('recentLandingLogin', JSON.stringify(recentLoginData));
-      console.log('📝 Recent login data stored in sessionStorage');
-      
-      // Encoder les données en base64 pour les passer dans l'URL
-      const encodedData = btoa(JSON.stringify(syncData));
-      
-      // Créer l'URL avec les paramètres d'authentification
-      const appUrl = new URL('https://app.mytekx.io');
-      appUrl.searchParams.set('auth', encodedData);
-      appUrl.searchParams.set('status', 'authenticated');
-      
-      console.log('🔗 Redirect URL created:', appUrl.toString());
-      console.log('🚀 Redirecting to app with auth parameters...');
-      
-      // Rediriger vers l'app avec les données d'authentification dans l'URL
-      window.location.href = appUrl.toString();
+      if (hasBetaAccess) {
+        // Synchroniser l'accès beta pour l'app
+        localStorage.setItem('hasBetaAccess', 'true');
+        localStorage.setItem('betaTimestamp', new Date().getTime().toString());
+        
+        console.log('🔐 Beta access synchronized for app');
+        
+        // Passer le statut beta dans l'URL pour synchronisation immédiate
+        const appUrl = new URL('https://app.mytekx.io');
+        appUrl.searchParams.set('beta', 'validated');
+        
+        console.log('🚀 Redirecting to app with beta status...');
+        window.location.href = appUrl.toString();
+      } else {
+        console.warn('⚠️ User does not have beta access');
+        // Redirection simple sans paramètre beta
+        console.log('🚀 Redirecting to app...');
+        window.location.href = 'https://app.mytekx.io';
+      }
       
     } catch (error) {
-      console.error('❌ Error preparing auth sync:', error);
+      console.error('❌ Error during redirect:', error);
       // Fallback vers redirection simple
       window.location.href = 'https://app.mytekx.io';
     }
-  }, [currentUser]);
+  }, [currentUser, checkBetaAccess]);
 
   // Fonction pour accéder à l'app avec vérification beta
   const accessApp = useCallback(() => {
@@ -89,9 +77,11 @@ export const useBetaAccess = () => {
     }
 
     if (!currentUser) {
-      console.warn('❌ User not authenticated - redirecting to login');
-      // Au lieu de simplement abandonner, rediriger vers la page de connexion
-      window.location.href = '/login';
+      console.warn('❌ User not authenticated - need to login first');
+      // Rediriger vers la page de connexion ou afficher un message
+      setIsProcessing(false);
+      // Vous pouvez personnaliser cette behavior selon vos besoins
+      alert('Veuillez vous connecter pour accéder à l\'application');
       return;
     }
 
@@ -99,8 +89,8 @@ export const useBetaAccess = () => {
     console.log('✅ User authenticated, checking beta access...');
 
     if (checkBetaAccess()) {
-      // L'utilisateur a déjà un accès beta, rediriger avec token d'authentification
-      console.log('🚀 User has beta access, redirecting to app with auth token');
+      // L'utilisateur a déjà un accès beta, rediriger avec synchronisation
+      console.log('🚀 User has beta access, redirecting to app');
       redirectToAppWithAuth();
     } else {
       // Afficher le modal de demande de code beta
@@ -120,7 +110,9 @@ export const useBetaAccess = () => {
 
   // Fonction appelée quand le code beta est validé
   const onBetaSuccess = useCallback(() => {
+    console.log('🎉 Beta code validated successfully');
     setShowBetaGate(false);
+    
     // Petite animation avant redirection
     setTimeout(() => {
       redirectToAppWithAuth();
@@ -129,8 +121,28 @@ export const useBetaAccess = () => {
 
   // Fonction pour fermer le modal beta
   const closeBetaGate = useCallback(() => {
+    console.log('❌ Beta gate closed by user');
     setShowBetaGate(false);
     setIsProcessing(false);
+  }, []);
+
+  // Gérer la déconnexion forcée depuis l'app
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('logout') === 'true') {
+      console.log('🔄 Logout parameter detected from app');
+      // Nettoyer l'URL
+      const newUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+    }
+    
+    if (urlParams.get('needsAuth') === 'true') {
+      console.log('🔐 needsAuth parameter detected from app');
+      alert('Votre session a expiré. Veuillez vous reconnecter.');
+      // Nettoyer l'URL
+      const newUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+    }
   }, []);
 
   return {
@@ -139,6 +151,7 @@ export const useBetaAccess = () => {
     onBetaSuccess,
     closeBetaGate,
     checkBetaAccess: checkBetaAccess(),
-    isProcessing
+    isProcessing,
+    isAuthenticated: !!currentUser
   };
 }; 

@@ -25,11 +25,39 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fonction de nettoyage complet de l'authentification
+  const clearAllAuthData = () => {
+    console.log('🧹 Clearing all authentication data...');
+    
+    // Nettoyer tous les cookies
+    document.cookie.split(";").forEach(function(c) { 
+      document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+    });
+    
+    // Nettoyer spécifiquement le cookie Firebase
+    document.cookie = '__session=; path=/; domain=.mytekx.io; max-age=0; secure; sameSite=Lax';
+    document.cookie = '__session=; path=/; domain=mytekx.io; max-age=0; secure; sameSite=Lax';
+    document.cookie = '__session=; path=/; max-age=0; secure; sameSite=Lax';
+    
+    // Nettoyer tout le stockage
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    // Nettoyer le cache d'indexedDB Firebase
+    if ('indexedDB' in window) {
+      indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    }
+    
+    console.log('✅ All auth data cleared');
+  };
+
   // Fonction d'inscription par email/mot de passe
   const signUp = async (email, password, displayName) => {
     try {
       setError(null);
       setLoading(true);
+      console.log('📝 Creating new user account...');
+      
       const result = await createUserWithEmailAndPassword(auth, email, password);
       
       // Mettre à jour le profil avec le nom d'affichage
@@ -39,8 +67,10 @@ export const AuthProvider = ({ children }) => {
         });
       }
       
+      console.log('✅ User account created successfully');
       return result;
     } catch (error) {
+      console.error('❌ Error creating account:', error);
       setError(getErrorMessage(error.code));
       throw error;
     } finally {
@@ -53,9 +83,13 @@ export const AuthProvider = ({ children }) => {
     try {
       setError(null);
       setLoading(true);
+      console.log('🔑 Signing in user...');
+      
       const result = await signInWithEmailAndPassword(auth, email, password);
+      console.log('✅ User signed in successfully');
       return result;
     } catch (error) {
+      console.error('❌ Error signing in:', error);
       setError(getErrorMessage(error.code));
       throw error;
     } finally {
@@ -68,9 +102,13 @@ export const AuthProvider = ({ children }) => {
     try {
       setError(null);
       setLoading(true);
+      console.log('🔑 Signing in with Google...');
+      
       const result = await signInWithPopup(auth, googleProvider);
+      console.log('✅ Google sign in successful');
       return result;
     } catch (error) {
+      console.error('❌ Error signing in with Google:', error);
       setError(getErrorMessage(error.code));
       throw error;
     } finally {
@@ -78,13 +116,28 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Fonction de déconnexion
+  // Fonction de déconnexion avec nettoyage des cookies
   const logout = async () => {
     try {
       setError(null);
+      console.log('🔄 Logging out user from landing page...');
+      
+      // Déconnecter de Firebase
       await signOut(auth);
+      
+      // Nettoyage complet
+      clearAllAuthData();
+      
+      console.log('✅ Logout completed from landing page');
+      
+      // Rafraîchir la page pour un état propre
+      window.location.reload();
+      
     } catch (error) {
+      console.error('❌ Error during logout:', error);
       setError(getErrorMessage(error.code));
+      // Même en cas d'erreur, nettoyer localement
+      clearAllAuthData();
       throw error;
     }
   };
@@ -93,8 +146,11 @@ export const AuthProvider = ({ children }) => {
   const resetPassword = async (email) => {
     try {
       setError(null);
+      console.log('📧 Sending password reset email...');
       await sendPasswordResetEmail(auth, email);
+      console.log('✅ Password reset email sent');
     } catch (error) {
+      console.error('❌ Error sending password reset:', error);
       setError(getErrorMessage(error.code));
       throw error;
     }
@@ -133,13 +189,71 @@ export const AuthProvider = ({ children }) => {
 
   // Écouter les changements d'état d'authentification
   useEffect(() => {
+    console.log('🚀 Landing AuthContext initializing...');
+    
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+      console.log('🔥 Landing Firebase auth state changed:', user?.email || 'null');
+      
+      if (user) {
+        console.log('✅ User authenticated on landing:', {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          emailVerified: user.emailVerified
+        });
+        
+        // Nettoyer les données d'auth potentiellement conflictuelles
+        const existingUserEmail = localStorage.getItem('userEmail');
+        if (existingUserEmail && existingUserEmail !== user.email) {
+          console.log('🧹 Cleaning conflicting localStorage data');
+          localStorage.removeItem('userEmail');
+          localStorage.removeItem('displayName');
+          localStorage.removeItem('userProfileData');
+        }
+        
+        // Stocker les nouvelles données
+        localStorage.setItem('userEmail', user.email);
+        if (user.displayName) {
+          localStorage.setItem('displayName', user.displayName);
+        }
+        
+        setCurrentUser(user);
+      } else {
+        console.log('❌ No authenticated user on landing');
+        setCurrentUser(null);
+        
+        // Nettoyer localStorage quand pas d'utilisateur
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('displayName');
+        localStorage.removeItem('userProfileData');
+      }
+      
       setLoading(false);
     });
 
     return unsubscribe;
   }, []);
+
+  // Fonction de debug pour les problèmes d'auth
+  window.debugLandingAuth = () => {
+    console.log('🔍 Landing Auth Debug:', {
+      'React currentUser': currentUser,
+      'Firebase auth.currentUser': auth.currentUser,
+      'Loading': loading,
+      'Error': error,
+      'localStorage userEmail': localStorage.getItem('userEmail'),
+      'All cookies': document.cookie
+    });
+  };
+
+  // Exposer la fonction de nettoyage pour le debug
+  window.clearAllAuthDataLanding = clearAllAuthData;
+
+  console.log('🎯 Landing AuthContext state:', {
+    currentUser: currentUser?.email || 'null',
+    loading,
+    error: error || 'none'
+  });
 
   const value = {
     currentUser,
@@ -150,7 +264,8 @@ export const AuthProvider = ({ children }) => {
     signInWithGoogle,
     logout,
     resetPassword,
-    clearError
+    clearError,
+    clearAllAuthData
   };
 
   return (
