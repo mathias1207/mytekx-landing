@@ -19,7 +19,7 @@ import { PrecisionLightbulbIcon } from './ui/precision-lightbulb';
 import { PrecisionCameraIcon } from './ui/precision-camera';
 import { SettingsGearIcon } from './ui/settings-gear';
 
-export default function LandingPage({ onGetStarted, onShowPreview, onShowSolution, onShowFAQ, onShowCookiePolicy, onShowPrivacyPolicy, onShowTermsOfUse, onShowAbout, language = 'fr', user = null, onLogout, onLanguageChange }) {
+export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, onShowCookiePolicy, onShowPrivacyPolicy, onShowTermsOfUse, onShowAbout, language = 'fr', onLanguageChange }) {
   const navigate = useNavigate();
   const featuresRef = useRef(null);
   const [showMoreOptions, setShowMoreOptions] = useState(false);
@@ -29,6 +29,11 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
   const [showGuidesTooltip, setShowGuidesTooltip] = useState(false);
   const dropdownTimeoutRef = useRef(null);
   const plansDropdownTimeoutRef = useRef(null);
+
+  // Fonction pour accéder à l'application (page de connexion)
+  const handleAccessApp = () => {
+    window.location.href = 'https://app.mytekx.io/login';
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -70,9 +75,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
       faq: "FAQ",
       about: "À PROPOS",
       contact: "CONTACT",
-      login: "LOGIN",
-      signup: "SIGN UP",
-      logout: "DÉCONNEXION",
+      accessApp: "ACCÉDER À L'APP",
       
       // Solutions dropdown
       studentsTitle: "Étudiants",
@@ -209,9 +212,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
       faq: "FAQ",
       about: "ABOUT", 
       contact: "CONTACT",
-      login: "LOGIN",
-      signup: "SIGN UP",
-      logout: "LOGOUT",
+      accessApp: "ACCESS APP",
       
       // Solutions dropdown
       studentsTitle: "Students",
@@ -460,39 +461,13 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
         </nav>
         
         <div className="hero-actions">
-          {user ? (
-            // User is logged in
-            <>
-              <button 
-                className="btn-user"
-                onClick={() => navigate('/profile')}
-              >
-                {user.displayName || user.email || 'Utilisateur'}
-              </button>
-              <button 
-                className="btn-outline"
-                onClick={onLogout}
-              >
-                {t.logout}
-              </button>
-            </>
-          ) : (
-            // User is not logged in
-            <>
-              <button 
-                className="btn-outline"
-                onClick={() => navigate('/login')}
-              >
-                {t.login}
-              </button>
-              <button 
-                className="btn-filled"
-                onClick={onGetStarted}
-              >
-                {t.signup}
-              </button>
-            </>
-          )}
+          {/* Bouton principal pour accéder à l'application */}
+          <button 
+            className="btn-app-access"
+            onClick={handleAccessApp}
+          >
+            {t.accessApp}
+          </button>
         </div>
       </header>
 
@@ -506,7 +481,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
         <div className="hero-buttons">
           <button 
             className="btn-blue"
-            onClick={onGetStarted}
+            onClick={handleAccessApp}
           >
             {t.startNowBtn} <span>&rarr;</span>
           </button>
@@ -951,7 +926,7 @@ export default function LandingPage({ onGetStarted, onShowPreview, onShowSolutio
             <p className="cta-tagline">{t.ctaTagline}</p>
             <h2 className="cta-title">{t.ctaTitle}</h2>
             <p className="cta-description">{t.ctaDescription}</p>
-            <button className="cta-button" onClick={onGetStarted}>
+            <button className="cta-button" onClick={handleAccessApp}>
               {t.ctaButton}
             </button>
           </div>
