@@ -61,6 +61,8 @@ export default function About({ onBack, language = 'en' }) {
   return (
     <div className="about-page">      
       <div className="about-container">
+        <BackButton onBack={onBack} />
+        
         <div className="about-header">
           <h1 className="about-title">{data.title}</h1>
           <p className="about-subtitle">{data.subtitle}</p>

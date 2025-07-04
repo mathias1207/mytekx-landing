@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import BackButton from './BackButton';
 import './FAQ.css';
 
-export default function FAQ({ language = 'fr' }) {
+export default function FAQ({ onBack, language = 'fr' }) {
   const [openQuestion, setOpenQuestion] = useState(null);
 
   const content = {
@@ -93,6 +94,8 @@ export default function FAQ({ language = 'fr' }) {
   return (
     <div className="faq-page">
       <div className="faq-container">
+        <BackButton onBack={onBack} />
+        
         <div className="faq-header">
           <h1 className="faq-title">{data.title}</h1>
           <p className="faq-subtitle">{data.subtitle}</p>
