@@ -69,7 +69,7 @@ export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, 
   // Fonction pour obtenir le texte de période
   const getPeriodText = () => {
     if (pricingPeriod === 'yearly') {
-      return language === 'fr' ? '/an' : '/year';
+      return language === 'fr' ? '/mois' : '/mo';
     }
     return language === 'fr' ? '/mois' : '/mo';
   };
