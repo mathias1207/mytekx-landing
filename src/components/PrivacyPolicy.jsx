@@ -1,7 +1,8 @@
 import React from 'react';
+import BackButton from './BackButton';
 import './LegalPages.css';
 
-export default function PrivacyPolicy({ language = 'fr' }) {
+export default function PrivacyPolicy({ onBack, language = 'fr' }) {
   const content = {
     fr: {
       title: "Politique de Confidentialité",
@@ -242,6 +243,8 @@ To exercise these rights, contact us at contact@mytekx.io`
   return (
     <div className="legal-page">
       <div className="legal-container">
+        <BackButton onBack={onBack} />
+        
         <div className="legal-header">
           <h1 className="legal-title">{data.title}</h1>
           <p className="legal-updated">{data.lastUpdated}</p>

@@ -1,7 +1,8 @@
 import React from 'react';
+import BackButton from './BackButton';
 import './LegalPages.css';
 
-export default function TermsOfUse({ language = 'fr' }) {
+export default function TermsOfUse({ onBack, language = 'fr' }) {
   const content = {
     fr: {
       title: "Conditions d'Utilisation",
@@ -234,6 +235,8 @@ export default function TermsOfUse({ language = 'fr' }) {
   return (
     <div className="legal-page">
       <div className="legal-container">
+        <BackButton onBack={onBack} />
+        
         <div className="legal-header">
           <h1 className="legal-title">{data.title}</h1>
           <p className="legal-updated">{data.lastUpdated}</p>

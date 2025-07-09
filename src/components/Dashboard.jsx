@@ -25,7 +25,7 @@ const Dashboard = ({ documents = [], onViewDocument, activeSection, onBackToLand
 
   const handleAccessApp = () => {
     // Redirect to main app
-    window.location.href = 'https://app.mytekx.io/login';
+    window.location.href = 'https://mytekx-5b59f.web.app';
   };
 
   return (

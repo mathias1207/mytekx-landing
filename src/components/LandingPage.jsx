@@ -32,7 +32,7 @@ export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, 
 
   // Fonction pour accéder à l'application (page de connexion)
   const handleAccessApp = () => {
-    window.location.href = 'https://app.mytekx.io';
+    window.location.href = 'https://mytekx-5b59f.web.app';
   };
 
   useEffect(() => {

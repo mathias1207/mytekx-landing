@@ -608,7 +608,7 @@ const translations = {
     personalInfo: "Informations personnelles",
     privacySecurity: "Confidentialité et Sécurité",
     latinAlphabetOnly: "Alphabets latins uniquement",
-    latinAlphabetMessage: "Actuellement, seules les langues utilisant l'alphabet latin sont disponibles. Les langues avec d'autres alphabets (arabe, chinois, hébreu, cyrillique, etc.) sont en cours de développement.",
+    latinAlphabetMessage: "Actuellement, seules les langues cibles utilisant l'alphabet latin sont disponibles. Les langues avec d'autres alphabets (arabe, chinois, hébreu, cyrillique, etc.) sont en cours de développement.",
     otherAlphabetsComingSoon: "Autres alphabets bientôt disponibles",
     lastUpdated: "Dernière mise à jour",
     // Confidentiality section
@@ -1228,7 +1228,7 @@ const translations = {
     personalInfo: "Personal Information",
     privacySecurity: "Privacy & Security",
     latinAlphabetOnly: "Latin alphabets only",
-    latinAlphabetMessage: "Currently, only languages using the Latin alphabet are available. Languages with other alphabets (Arabic, Chinese, Hebrew, Cyrillic, etc.) are under development.",
+    latinAlphabetMessage: "Currently, only target languages using the Latin alphabet are available. Languages with other alphabets (Arabic, Chinese, Hebrew, Cyrillic, etc.) are under development.",
     otherAlphabetsComingSoon: "Other alphabets coming soon",
   }
 };
@@ -1241,10 +1241,21 @@ export const useLanguage = () => useContext(LanguageContext);
 
 // Fournisseur du contexte
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState('fr');
+  // Initialiser avec la langue sauvegardée ou 'fr' par défaut
+  const [language, setLanguage] = useState(() => {
+    const savedLanguage = localStorage.getItem('mytekx-language');
+    return savedLanguage || 'fr';
+  });
+  
+  // Sauvegarder la langue dans localStorage à chaque changement
+  const handleSetLanguage = (newLanguage) => {
+    setLanguage(newLanguage);
+    localStorage.setItem('mytekx-language', newLanguage);
+  };
   
   const toggleLanguage = () => {
-    setLanguage(prevLang => prevLang === 'fr' ? 'en' : 'fr');
+    const newLanguage = language === 'fr' ? 'en' : 'fr';
+    handleSetLanguage(newLanguage);
   };
   
   // Raccourci pour accéder aux traductions
@@ -1253,7 +1264,7 @@ export const LanguageProvider = ({ children }) => {
   };
   
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, toggleLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );

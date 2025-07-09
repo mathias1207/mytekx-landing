@@ -169,7 +169,7 @@ const LatexGeneratorIA = () => {
   };
 
   const handleCTA = () => {
-    window.open('https://app.mytekx.io', '_blank');
+          window.open('https://mytekx-5b59f.web.app', '_blank');
   };
 
   return (
@@ -334,7 +334,7 @@ const LatexGeneratorIA = () => {
           </h2>
           <p className="text-xl mb-8 opacity-90">
             {language === 'fr' 
-              ? 'Rejoignez des milliers d\'utilisateurs qui font confiance à notre IA'
+              ? 'Rejoignez des dixaines d\'utilisateurs qui font confiance à notre IA'
               : 'Join thousands of users who trust our AI'}
           </p>
           <button 
