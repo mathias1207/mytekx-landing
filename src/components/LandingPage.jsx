@@ -27,12 +27,51 @@ export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, 
   const [showPlansDropdown, setShowPlansDropdown] = useState(false);
   const [showBlogTooltip, setShowBlogTooltip] = useState(false);
   const [showGuidesTooltip, setShowGuidesTooltip] = useState(false);
+  const [pricingPeriod, setPricingPeriod] = useState('monthly');
   const dropdownTimeoutRef = useRef(null);
   const plansDropdownTimeoutRef = useRef(null);
 
   // Fonction pour accéder à l'application (page de connexion)
   const handleAccessApp = () => {
     window.location.href = 'https://mytekx-5b59f.web.app';
+  };
+
+  // Définir les prix de base (mensuels)
+  const basePrices = {
+    fr: {
+      basic: 4.99,
+      standard: 7.99,
+      premium: 19.99
+    },
+    en: {
+      basic: 4.99,
+      standard: 7.99,
+      premium: 19.99
+    }
+  };
+
+  // Calculer les prix selon la période
+  const calculatePrice = (basePrice, period) => {
+    if (period === 'yearly') {
+      return (basePrice * 0.8).toFixed(2); // 20% de réduction
+    }
+    return basePrice.toFixed(2);
+  };
+
+  // Fonction pour formater les prix selon la langue
+  const formatPrice = (price) => {
+    if (language === 'fr') {
+      return `${price}€`;
+    }
+    return `$${price}`;
+  };
+
+  // Fonction pour obtenir le texte de période
+  const getPeriodText = () => {
+    if (pricingPeriod === 'yearly') {
+      return language === 'fr' ? '/an' : '/year';
+    }
+    return language === 'fr' ? '/mois' : '/mo';
   };
 
   useEffect(() => {
@@ -88,8 +127,10 @@ export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, 
       institutionsDesc: "Solutions à grande échelle",
       
       // Plans dropdown
+      basicPlanTitle: "Basic",
+      basicPlanDesc: "4.99€ - Plan d'entrée idéal",
       standardPlanTitle: "Standard",
-      standardPlanDesc: "7.99€ - Plan de base pour débuter",
+      standardPlanDesc: "7.99€ - Plan idéal pour étudiants",
       premiumPlanTitle: "Premium",
       premiumPlanDesc: "19.99€ - Fonctionnalités avancées",
       proPlanTitle: "Pro",
@@ -179,12 +220,57 @@ export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, 
       ctaDescription: "Rejoignez des dixaines d'utilisateurs qui révolutionnent déjà leur workflow avec MyTekX.",
       ctaButton: "Commencer Maintenant",
       
+      // Pricing Section
+      pricingTitle: "Plans Individuels",
+      pricingMonthly: "MENSUEL",
+      pricingYearly: "ANNUEL (ÉCONOMISEZ 20%)",
+      pricingPeriod: "/mois",
+      
+      basicPlan: "Basic",
+      basicPrice: "4,99€",
+      basicIncludes: "Inclut",
+      basicFeature1: "1 contenu spécial maximum",
+      basicFeature2: "30 pages par mois",
+      basicFeature3: "Conversion PDF vers LaTeX",
+      basicDownload: "Commencer",
+      basicOthers: "Gratuit",
+      
+      standardPlan: "Standard",
+      standardPrice: "7,99€",
+      standardEverything: "Tout du Basic, plus",
+      standardFeature1: "2 contenus spéciaux maximum",
+      standardFeature2: "100 pages par mois",
+      standardFeature3: "Options pédagogiques avancées",
+      standardFeature4: "Support prioritaire",
+      standardFeature5: "Personnalisation des documents",
+      standardGetPlan: "Obtenir Standard",
+      standardMoreInfo: "Plus d'infos",
+      
+      premiumPlan: "Premium",
+      premiumPrice: "19,99€",
+      premiumEverything: "Tout du Standard, plus",
+      premiumFeature1: "Contenus spéciaux illimités",
+      premiumFeature2: "400 pages par mois",
+      premiumFeature3: "Export multiple formats",
+      premiumFeature4: "Intégrations avancées",
+      premiumGetPlan: "Obtenir Premium",
+      
+      proPlan: "Pro",
+      proPrice: "Sur devis",
+      proEverything: "Solutions personnalisées",
+      proFeature1: "Volume illimité",
+      proFeature2: "Intégrations API",
+      proFeature3: "Support dédié",
+      proFeature4: "Déploiement sur site",
+      proGetPlan: "Nous contacter",
+      
       // Footer
       footerPlans: "Plans",
       footerSolutions: "Solutions", 
       footerSupport: "Support",
       footerCompany: "Entreprise",
       footerLegals: "Légal",
+      footerBasic: "Basic",
       footerStandard: "Standard",
       footerPremium: "Premium",
       footerPro: "Pro",
@@ -225,8 +311,10 @@ export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, 
       institutionsDesc: "Large-scale solutions",
       
       // Plans dropdown
+      basicPlanTitle: "Basic",
+      basicPlanDesc: "$4.99 - Perfect entry plan",
       standardPlanTitle: "Standard",
-      standardPlanDesc: "$7.99 - Basic plan to get started",
+      standardPlanDesc: "$7.99 - Best plan for students",
       premiumPlanTitle: "Premium",
       premiumPlanDesc: "$19.99 - Advanced features",
       proPlanTitle: "Pro",
@@ -316,12 +404,57 @@ export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, 
       ctaDescription: "Join thousands of users already revolutionizing their workflow with MyTekX.",
       ctaButton: "Get Started Now",
       
+      // Pricing Section
+      pricingTitle: "Individual Plans",
+      pricingMonthly: "MONTHLY",
+      pricingYearly: "YEARLY (SAVE 20%)",
+      pricingPeriod: "/mo",
+      
+      basicPlan: "Basic",
+      basicPrice: "$4.99",
+      basicIncludes: "Includes",
+      basicFeature1: "1 special content maximum",
+      basicFeature2: "30 pages per month",
+      basicFeature3: "PDF to LaTeX conversion",
+      basicDownload: "Get Started",
+      basicOthers: "Free",
+      
+      standardPlan: "Standard",
+      standardPrice: "$7.99",
+      standardEverything: "Everything in Basic, plus",
+      standardFeature1: "2 special contents maximum",
+      standardFeature2: "100 pages per month",
+      standardFeature3: "Advanced pedagogical options",
+      standardFeature4: "Priority support",
+      standardFeature5: "Document customization",
+      standardGetPlan: "Get Standard",
+      standardMoreInfo: "More info",
+      
+      premiumPlan: "Premium",
+      premiumPrice: "$19.99",
+      premiumEverything: "Everything in Standard, plus",
+      premiumFeature1: "Unlimited special contents",
+      premiumFeature2: "400 pages per month",
+      premiumFeature3: "Multiple export formats",
+      premiumFeature4: "Advanced integrations",
+      premiumGetPlan: "Get Premium",
+      
+      proPlan: "Pro",
+      proPrice: "Custom Quote",
+      proEverything: "Personalized solutions",
+      proFeature1: "Unlimited volume",
+      proFeature2: "API integrations",
+      proFeature3: "Dedicated support",
+      proFeature4: "On-site deployment",
+      proGetPlan: "Contact us",
+      
       // Footer
       footerPlans: "Plans",
       footerSolutions: "Solutions",
       footerSupport: "Support", 
       footerCompany: "Company",
       footerLegals: "Legal",
+      footerBasic: "Basic",
       footerStandard: "Standard",
       footerPremium: "Premium",
       footerPro: "Pro",
@@ -386,6 +519,10 @@ export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, 
                     }, 100);
                   }}
                 >
+                  <div className="dropdown-item">
+                    <div className="dropdown-title">{t.basicPlanTitle}</div>
+                    <div className="dropdown-desc">{t.basicPlanDesc}</div>
+                  </div>
                   <div className="dropdown-item">
                     <div className="dropdown-title">{t.standardPlanTitle}</div>
                     <div className="dropdown-desc">{t.standardPlanDesc}</div>
@@ -933,6 +1070,175 @@ export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, 
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <section className="pricing-section">
+        <div className="pricing-container">
+          <div className="pricing-header">
+            <h2 className="pricing-title">{t.pricingTitle}</h2>
+            <div className="pricing-toggle">
+              <button 
+                className={`pricing-toggle-btn ${pricingPeriod === 'monthly' ? 'active' : ''}`}
+                onClick={() => setPricingPeriod('monthly')}
+              >
+                {t.pricingMonthly}
+              </button>
+              <button 
+                className={`pricing-toggle-btn ${pricingPeriod === 'yearly' ? 'active' : ''}`}
+                onClick={() => setPricingPeriod('yearly')}
+              >
+                {t.pricingYearly}
+              </button>
+            </div>
+          </div>
+
+          <div className="pricing-cards">
+            {/* Basic Plan */}
+            <div className="pricing-card">
+              <div className="pricing-card-header">
+                <h3 className="pricing-card-title">{t.basicPlan}</h3>
+                <div className="pricing-card-price">
+                  <span className="price-amount">{formatPrice(calculatePrice(basePrices[language].basic, pricingPeriod))}</span>
+                  <span className="price-period">{getPeriodText()}</span>
+                </div>
+              </div>
+              <div className="pricing-card-body">
+                <p className="pricing-card-subtitle">{t.basicIncludes}</p>
+                <ul className="pricing-features">
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.basicFeature1}
+                  </li>
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.basicFeature2}
+                  </li>
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.basicFeature3}
+                  </li>
+                </ul>
+              </div>
+              <div className="pricing-card-footer">
+                <button className="pricing-btn-secondary" onClick={handleAccessApp}>
+                  {t.basicDownload}
+                </button>
+              </div>
+            </div>
+
+            {/* Standard Plan */}
+            <div className="pricing-card pricing-card-featured">
+              <div className="pricing-card-header">
+                <h3 className="pricing-card-title">{t.standardPlan}</h3>
+                <div className="pricing-card-price">
+                  <span className="price-amount">{formatPrice(calculatePrice(basePrices[language].standard, pricingPeriod))}</span>
+                  <span className="price-period">{getPeriodText()}</span>
+                </div>
+              </div>
+              <div className="pricing-card-body">
+                <p className="pricing-card-subtitle">{t.standardEverything}</p>
+                <ul className="pricing-features">
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.standardFeature1}
+                  </li>
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.standardFeature2}
+                  </li>
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.standardFeature3}
+                  </li>
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.standardFeature4}
+                  </li>
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.standardFeature5}
+                  </li>
+                </ul>
+              </div>
+              <div className="pricing-card-footer">
+                <button className="pricing-btn-primary" onClick={handleAccessApp}>{t.standardGetPlan}</button>
+                <button className="pricing-btn-link" onClick={handleAccessApp}>{t.standardMoreInfo} ↗</button>
+              </div>
+            </div>
+
+            {/* Premium Plan */}
+            <div className="pricing-card">
+              <div className="pricing-card-header">
+                <h3 className="pricing-card-title">{t.premiumPlan}</h3>
+                <div className="pricing-card-price">
+                  <span className="price-amount">{formatPrice(calculatePrice(basePrices[language].premium, pricingPeriod))}</span>
+                  <span className="price-period">{getPeriodText()}</span>
+                </div>
+              </div>
+              <div className="pricing-card-body">
+                <p className="pricing-card-subtitle">{t.premiumEverything}</p>
+                <ul className="pricing-features">
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.premiumFeature1}
+                  </li>
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.premiumFeature2}
+                  </li>
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.premiumFeature3}
+                  </li>
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.premiumFeature4}
+                  </li>
+                </ul>
+              </div>
+              <div className="pricing-card-footer">
+                <button className="pricing-btn-secondary" onClick={handleAccessApp}>{t.premiumGetPlan}</button>
+              </div>
+            </div>
+
+            {/* Pro Plan */}
+            <div className="pricing-card">
+              <div className="pricing-card-header">
+                <h3 className="pricing-card-title">{t.proPlan}</h3>
+                <div className="pricing-card-price">
+                  <span className="price-amount">{t.proPrice}</span>
+                </div>
+              </div>
+              <div className="pricing-card-body">
+                <p className="pricing-card-subtitle">{t.proEverything}</p>
+                <ul className="pricing-features">
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.proFeature1}
+                  </li>
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.proFeature2}
+                  </li>
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.proFeature3}
+                  </li>
+                  <li className="pricing-feature">
+                    <span className="feature-check">✓</span>
+                    {t.proFeature4}
+                  </li>
+                </ul>
+              </div>
+              <div className="pricing-card-footer">
+                <button className="pricing-btn-secondary" onClick={() => window.open('mailto:contact@mytekx.io?subject=Devis%20Plan%20Pro', '_blank')}>
+                  {t.proGetPlan}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="footer">
         <div className="footer-container">
@@ -940,6 +1246,7 @@ export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, 
             <div className="footer-column">
               <h3 className="footer-title">{t.footerPlans}</h3>
               <ul className="footer-links">
+                <li className="footer-link">{t.footerBasic}</li>
                 <li className="footer-link">{t.footerStandard}</li>
                 <li className="footer-link">{t.footerPremium}</li>
                 <li className="footer-link">{t.footerPro}</li>
