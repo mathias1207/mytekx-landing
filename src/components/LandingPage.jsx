@@ -19,7 +19,7 @@ import { PrecisionLightbulbIcon } from './ui/precision-lightbulb';
 import { PrecisionCameraIcon } from './ui/precision-camera';
 import { SettingsGearIcon } from './ui/settings-gear';
 
-export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, onShowCookiePolicy, onShowPrivacyPolicy, onShowTermsOfUse, onShowAbout, language = 'fr', onLanguageChange }) {
+export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, onShowCookiePolicy, onShowPrivacyPolicy, onShowTermsOfUse, onShowAbout, language = 'en', onLanguageChange }) {
   const navigate = useNavigate();
   const featuresRef = useRef(null);
   const [showMoreOptions, setShowMoreOptions] = useState(false);

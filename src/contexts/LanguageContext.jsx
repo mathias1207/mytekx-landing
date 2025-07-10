@@ -1241,10 +1241,10 @@ export const useLanguage = () => useContext(LanguageContext);
 
 // Fournisseur du contexte
 export const LanguageProvider = ({ children }) => {
-  // Initialiser avec la langue sauvegardée ou 'fr' par défaut
+  // Initialiser avec la langue sauvegardée ou 'en' par défaut
   const [language, setLanguage] = useState(() => {
     const savedLanguage = localStorage.getItem('mytekx-language');
-    return savedLanguage || 'fr';
+    return savedLanguage || 'en';
   });
   
   // Sauvegarder la langue dans localStorage à chaque changement

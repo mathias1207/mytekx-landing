@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const LatexGeneratorIA = () => {
-  const [language, setLanguage] = useState('fr');
+  const [language, setLanguage] = useState('en');
 
   useEffect(() => {
     document.title = language === 'fr' 
