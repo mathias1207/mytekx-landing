@@ -19,8 +19,8 @@ export const ThemeProvider = ({ children }) => {
     if (savedTheme) {
       return savedTheme === 'dark';
     }
-    // Sinon, utiliser la préférence système
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Sinon, utiliser le mode clair par défaut
+    return false;
   });
 
   const toggleTheme = () => {
