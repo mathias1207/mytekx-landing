@@ -481,6 +481,18 @@ export default function LandingPage({ onShowPreview, onShowSolution, onShowFAQ, 
 
   return (
     <div className="hero-container">
+      {/* Bandeau d'avertissement bêta défilant */}
+      <div className="beta-warning-banner">
+        <div className="beta-warning-content">
+          <span className="beta-warning-text">
+            {language === 'fr' ? 
+              '🚧 VERSION BÊTA - Cette version est encore en développement. Certaines fonctionnalités peuvent être instables. Nous travaillons activement à l\'améliorer. Merci de votre patience ! 🚧' : 
+              '🚧 BETA VERSION - This version is still in development. Some features may be unstable. We are actively working to improve it. Thank you for your patience! 🚧'
+            }
+          </span>
+        </div>
+      </div>
+      
       <AnimatedBackground />
       <header className="hero-header">
         <div className="logo">
