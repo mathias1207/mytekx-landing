@@ -70,7 +70,7 @@ const SolutionPage = ({ onBack, solutionType = 'student', language = 'fr' }) => 
           <div className="solution-cta">
             <button 
               className="solution-button"
-              onClick={() => window.location.href = 'https://mytekx-5b59f.web.app'}
+              onClick={() => window.location.href = 'https://app.mytekx.io'}
             >
               Commencer maintenant
             </button>

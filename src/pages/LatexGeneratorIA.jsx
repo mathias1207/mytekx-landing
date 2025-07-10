@@ -169,7 +169,7 @@ const LatexGeneratorIA = () => {
   };
 
   const handleCTA = () => {
-          window.open('https://mytekx-5b59f.web.app', '_blank');
+          window.open('https://app.mytekx.io', '_blank');
   };
 
   return (
